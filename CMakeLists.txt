@@ -1,0 +1,17 @@
+cmake_minimum_required(VERSION 3.6)
+project(vigenere-victory)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_VERBOSE_MAKEFILE 1)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+set(GCC_COVERAGE_COMPILE_FLAGS "-Wall -Wextra -pedantic")
+set(GCC_COVERAGE_LINK_FLAGS "-pthread -lstdc++fs")
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}")
+
+
+set(SOURCE_FILES Vigenere.cpp)
+add_executable(vigenere-victory ${SOURCE_FILES})
