@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(cpp-project-template)
+project(vigenere-victory)
 
 # Set the Standard version.
 include(CheckCXXCompilerFlag)
