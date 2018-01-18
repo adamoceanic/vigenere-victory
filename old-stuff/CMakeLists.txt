@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(vig-vic-test)
+project(vigenere-victory)
 
 # Set the Standard version.
 include(CheckCXXCompilerFlag)
@@ -32,9 +32,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/build")
 
-set(PUBLIC_INCLUDE_DIR "include/")
-MESSAGE("HELLO LOOK HERE " ${PUBLIC_INCLUDE_DIR})
-
-add_subdirectory(src/Lib1)
-add_subdirectory(src/App)
+add_subdirectory(Lib1)
+add_subdirectory(MyApp)
 add_subdirectory(test)
