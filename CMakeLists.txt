@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(vig-vic-test)
+project(VigenereVictory)
 
 # Set the Standard version.
 include(CheckCXXCompilerFlag)

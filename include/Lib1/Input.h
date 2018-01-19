@@ -2,23 +2,24 @@
 /*
  * Manage the MATLAB api and wait for input strings
  */
-
 #include <memory>
 #include <string>
+
+#include "src/Lib1/matlab_api.h"
 
 using std::string;
 using std::unique_ptr;
 using std::make_unique;
 
-class Input_Impl;
-
 class Input {
 private:
-    unique_ptr<Input_Impl> pImpl;
+    unique_ptr<MatlabAPI> matlab_;
+    bool has_ciphertext;
+    string matlab_ciphertext;
 public:
-    bool HasInput();
-    string GetInput();
-    int GetTestData();
+    bool HasCiphertext();
+    string GetCiphertext();
+    void Start();
 
     Input();
     ~Input();

@@ -16,20 +16,13 @@ class VigenereDecipherer {
 private:
 
 
-
 public:
     using results_info_pair_t = pair<string, unordered_map<string,int>>;
 
     results_info_pair_t Decipher(string ciphertext);
 
 
-
-
-
-
-    VigenereDecipherer() {
-
-    }
+    VigenereDecipherer() {}
     ~VigenereDecipherer() {
 
     }

@@ -1,20 +1,24 @@
 #include "include/Lib1/Input.h"
-#include "Input_Impl.h"
 
-
-bool Input::HasInput() {
-    return pImpl->HasInput();
+bool Input::HasCiphertext() {
+    return has_ciphertext;
 }
 
-int Input::GetTestData() {
-    return pImpl->GetTestData();
+string Input::GetCiphertext(){
+    return matlab_ciphertext;
 }
 
-string Input::GetInput() {
-    return pImpl->GetInput();
+Input::Input() : matlab_{ make_unique<MatlabAPI>() } {
 }
 
-Input::Input() : pImpl{make_unique<Input_Impl>()} {
+void Input::Start() {
+    /*
+     * thread for querying matlab etc
+     * dont forget mutex and lock_guard layout
+     * matlab_.GetCiphertext
+     *
+     * if yes put into matlab_ciphertext
+     * set has ciphertext to true
+     */
 }
-
 Input::~Input() = default;

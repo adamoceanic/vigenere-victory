@@ -1,9 +1,13 @@
-#include <string>
 #include <memory>
+#include <iostream>
+
 
 #include "include/Lib1/Vigenere.h"
 
+
 using std::make_unique;
+using std::cout;
+using std::endl;
 
 /*
 ostream& operator<< (ostream& os, const MyType& value) {

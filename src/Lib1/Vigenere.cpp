@@ -6,7 +6,7 @@ int Vigenere::TestTwentyTwo() {
 }
 
 void Vigenere::Start() {
-
+    pImpl->Start();
 }
 
 Vigenere::Vigenere() : pImpl{ make_unique<Vigenere_Impl>() } {
