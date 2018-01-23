@@ -2,8 +2,7 @@
 #include "include/Lib1/Input.h"
 
 
-
-TEST_CASE("Input class basics", "[vigenere-basic]") {
+TEST_CASE("Input class basics", "[input-basic]") {
     auto input = new Input();
 
     SECTION("actually gets default constructed") {

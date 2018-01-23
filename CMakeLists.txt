@@ -1,7 +1,12 @@
 cmake_minimum_required(VERSION 3.8)
-project(VigenereVictory)
+#set(CMAKE_CXX_COMPILER "/usr/bin/c++")
 
+project(vigenere-victory)
+
+
+# ============================================================
 # Set the Standard version.
+
 include(CheckCXXCompilerFlag)
 
 check_cxx_compiler_flag("-std=c++14" COMPILER_SUPPORTS_CXX14)
@@ -18,23 +23,60 @@ else ()
     message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
 endif ()
 
-set(CMAKE_CXX_STANDARD 14)
+#set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_VERBOSE_MAKEFILE 1)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic -pipe")
+set(CMAKE_EXE_LINKER_FLAGS "-pthread")
+set(GCC_OPTIMIZATIONS "-g -O2")
+set(GCC_COVERAGE "")
 
-set(GCC_COVERAGE_COMPILE_FLAGS "-Wall -Wextra -pedantic -pipe")
-set(GCC_COVERAGE_LINK_FLAGS "-pthread")
 # -lstdc++fs - for safe keeping (--enable-libstdcxx-filesystem-ts)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/build")
+# ============================================================
+# Coveralls
 
-set(PUBLIC_INCLUDE_DIR "include/")
-MESSAGE("HELLO LOOK HERE " ${PUBLIC_INCLUDE_DIR})
+option(COVERALLS "Generate coveralls data" OFF)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake-coveralls)
+
+if (COVERALLS)
+    MESSAGE("MAKING COVERALLS BUILD ==============================")
+    include(Coveralls)
+    coveralls_turn_on_coverage()
+
+    file(GLOB COV_SOURCE_FILES include/Lib1/*.h src/App/*.cpp src/Lib1/*.h src/Lib1/*.cpp)
+    #src/App/*.cpp
+    set(COVERAGE_SRCS "${COV_SOURCE_FILES}" )
+    # Create the coveralls target.
+    coveralls_setup("${COVERAGE_SRCS}" ON)
+    #set(GCC_COVERAGE_COMPILE_FLAGS "-g -O0 -coverage -fprofile-arcs -ftest-coverage")
+    #set(GCC_COVERAGE_LINK_FLAGS "-coverage -lgcov")
+    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
+    #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}")
+    set(GCC_OPTIMIZATIONS "")
+    set(GCC_COVERAGE "-lgcov")
+endif()
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_OPTIMIZATIONS}")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
+
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/build")
+set(CATCH_HEADER_PATH ${PROJECT_SOURCE_DIR}/test/catch/catch.h)
 
 add_subdirectory(src/Lib1)
 add_subdirectory(src/App)
 add_subdirectory(test)
+
+# ============================================================
+# Coveralls
+
+enable_testing()
+if(COVERALLS)
+    #message("BUILD_TESTING HIT")
+    add_test(RTEST ${PROJECT_SOURCE_DIR}/build/VigenereTests)
+endif()
+
+

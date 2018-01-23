@@ -21,6 +21,22 @@ matrix:
           packages:
             - g++-5
       env: COMPILER=g++-5
+    - compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-6
+      env: COMPILER=g++-6
+    - compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env: COMPILER=g++-7
     - compiler: clang
       addons:
         apt:
@@ -40,15 +56,17 @@ matrix:
             - clang-3.7
       env: COMPILER=clang++-3.7
 
+
 before_install:
   - sudo apt-get update -qq
   - pip install --user cpp-coveralls
+  - sudo apt-get install -y -qq build-essential cmake curl lcov
+  - export COVERALLS_SERVICE_NAME=travis-ci
+  - export COVERALLS_REPO_TOKEN=qMnxOmVdPZQAy8NayupByFotwClBMzdjN
+
 script:
   - mkdir build
   - cd build
-  - cmake --enable-gcov -DCMAKE_CXX_COMPILER=$COMPILER .. && make
+  - cmake --enable-gcov -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=$COMPILER .. && make
+  - make coveralls
   - ./VigenereTests
-  - ./VigenereVictory
-  
-after_success:
-- coveralls --exclude lib --exclude tests --gcov-options '\-lp'
