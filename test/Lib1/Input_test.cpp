@@ -1,5 +1,6 @@
 #include "catch.h"
-#include "include/Lib1/Input.h"
+#include "src/Lib1/Input.h"
+#include "src/Lib1/matlab_api.h"
 
 
 TEST_CASE("Input class basics", "[input-basic]") {
@@ -7,6 +8,11 @@ TEST_CASE("Input class basics", "[input-basic]") {
 
     SECTION("actually gets default constructed") {
         REQUIRE(input != nullptr);
+    }
+
+    SECTION("correct default constructed values") {
+        REQUIRE(input->GetCiphertext().empty());
+        REQUIRE(!input->HasCiphertext());
     }
 
     delete(input);

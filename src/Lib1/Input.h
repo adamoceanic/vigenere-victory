@@ -13,7 +13,6 @@ using std::make_unique;
 
 class Input {
 private:
-    unique_ptr<MatlabAPI> matlab_;
     bool has_ciphertext;
     string matlab_ciphertext;
 public:

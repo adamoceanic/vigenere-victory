@@ -10,7 +10,7 @@ class VigenereDecipherer;
 class Vigenere_Impl {
 private:
     unique_ptr<Input> input_manager_;
-    unique_ptr<VigenereDecipherer> v_d_;
+    unique_ptr<VigenereDecipherer> vigenere_decipherer_;
 public:
     void Start();
 

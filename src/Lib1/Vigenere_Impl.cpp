@@ -1,43 +1,53 @@
 #include "Vigenere_Impl.h"
 
 #include <memory>
+#include <thread>
+#include <chrono>
+#include <iostream>
 
-#include "include/Lib1/Input.h"
-#include "include/Lib1/VigenereDecipherer.h"
+#include "src/Lib1/Input.h"
+#include "src/Lib1/VigenereDecipherer.h"
 
 using std::make_unique;
+using std::cout;
+using std::endl;
+
 
 void Vigenere_Impl::Start() {
-    /*
-     * // Start thread listening for Matlab inputs:
-     * input_manager->Start()
-     *
-     * while(true)
-     * // Wait x amount etc
-     * this_thread::sleep_for(chrono::seconds(2))
-     * // check if ciphertext
-     * i_m.HasCiphertext()
-     *
-     * x = i_m.GetCiphertext()
-     *
-     * // Decipher
-     * x = v_d_.Decipher(x)
-     *
-     * // decide on further processing etc needed via return data vars
-     * best_guess_dictionary.Process(x)
-     *
-     * // print results - later: pass back to ar unit /webcam
-     *
-     */
+
+    input_manager_->Start();
+
+    // think of better control
+    while (true) {
+        cout << "Listening for MATLAB inputs" << endl;
+        if (input_manager_->HasCiphertext()) {
+            /*
+             * Do the things
+             */
+            string cipher_text = input_manager_->GetCiphertext();
+            vigenere_decipherer_->Decipher(cipher_text);
+        }
+        else {
+            std::this_thread::sleep_for(std::chrono::seconds(5));
+        }
+        /*
+         * returns key length and suggestions, other meta data
+         */
+        /*
+         * Best Guess, text analysis etc
+         */
+        /*
+         * output text then AR to screen
+         */
+    }
+
 
 }
 
 Vigenere_Impl::Vigenere_Impl()
         : input_manager_{ make_unique<Input>() },
-          v_d_{ make_unique<VigenereDecipherer>() } {
+          vigenere_decipherer_{ make_unique<VigenereDecipherer>() } {
 
 }
-
-
 
 Vigenere_Impl::~Vigenere_Impl() = default;

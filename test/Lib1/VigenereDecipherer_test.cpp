@@ -1,6 +1,6 @@
 #include "catch.h"
 
-#include "include/Lib1/VigenereDecipherer.h"
+#include "src/Lib1/VigenereDecipherer.h"
 
 TEST_CASE("VigenereDecipher class basics", "[vigenere-basic]") {
     auto vig_dec = new VigenereDecipherer();

@@ -14,7 +14,7 @@ if [ -d "$build_test_dir" ]; then
 fi
 
 if [ -d "$build_dir" ]; then
-    echo "Deleting build directory contents"
+    echo "Deleting build directory"
     rm -rfv "$build_dir"
     mkdir ../build
 fi
