@@ -39,7 +39,7 @@ public:
     }
 
     string GetCiphertextBash() {
-        const char* script_path = "/home/sapho/portfolio-work/vigenere-victory/matlab-script/matlab_get_string.sh\0";
+        const char* script_path = "../matlab-script/matlab_get_string.sh\0"; // relative links suck - think of better way for travis
         FILE* pipe = popen(script_path, "r");
         if (!pipe) {
             return "ERROR";
@@ -59,7 +59,7 @@ public:
         ifstream file;
         file.exceptions( ifstream::failbit | ifstream::badbit);
         try {
-            file.open("/home/sapho/portfolio-work/vigenere-victory/matlab-script/ciphertext.txt",
+            file.open("../matlab-script/ciphertext.txt",
                           ios::in | ios::binary);
 
             stringstream ciphertext_buffer;
