@@ -1,23 +1,36 @@
 #pragma once
-/*
- * Manage the MATLAB api and wait for input strings
- */
+
 #include <memory>
 #include <string>
-
-#include "src/Lib1/matlab_api.h"
+#include <thread>
+#include <mutex>
 
 using std::string;
 using std::unique_ptr;
 using std::make_unique;
+using std::mutex;
 
 class Input {
 private:
-    bool has_ciphertext;
-    string matlab_ciphertext;
+    mutable mutex m_c_mux_;
+    mutable mutex m_l_f_mux_;
+    mutable mutex h_c_mux_;
+
+    bool has_ciphertext_;
+    bool matlab_listening_flag_;
+    string matlab_ciphertext_;
+
+    void StopListening_Matlab();
+    void StartListening_Matlab();
+
 public:
-    bool HasCiphertext();
-    string GetCiphertext();
+    bool HasCiphertext() const;
+    void SetHasCiphertext(bool t_f);
+
+    string GetCiphertext() const;
+    void SetCiphertext(string&& c_text);
+    bool GetListeningStatus_Matlab() const;
+
     void Start();
 
     Input();

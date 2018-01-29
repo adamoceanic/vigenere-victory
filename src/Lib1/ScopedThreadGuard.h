@@ -18,4 +18,6 @@ public:
     }
     ScopedThreadGuard(const ScopedThreadGuard& )= delete;
     ScopedThreadGuard& operator=(const ScopedThreadGuard&)= delete;
+    ScopedThreadGuard(const ScopedThreadGuard&& )= delete;
+    ScopedThreadGuard& operator=(const ScopedThreadGuard&&)= delete;
 };

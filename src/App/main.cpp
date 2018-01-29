@@ -1,11 +1,8 @@
 #include <memory>
-#include <iostream>
 
 #include "include/Lib1/Vigenere.h"
 
 using std::make_unique;
-using std::cout;
-using std::endl;
 
 /*
 ostream& operator<< (ostream& os, const MyType& value) {
@@ -17,7 +14,7 @@ ostream& operator<< (ostream& os, const MyType& value) {
 int main() {
 
     auto vig_entry = make_unique<Vigenere>();
-    vig_entry->Start();
+     vig_entry->Start();
 
     int land_here = 10;
 

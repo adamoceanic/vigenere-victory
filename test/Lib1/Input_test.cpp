@@ -1,6 +1,5 @@
 #include "catch.h"
 #include "src/Lib1/Input.h"
-#include "src/Lib1/matlab_api.h"
 
 
 TEST_CASE("Input class basics", "[input-basic]") {

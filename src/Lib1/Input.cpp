@@ -1,42 +1,79 @@
 #include "src/Lib1/Input.h"
 
-#include <thread>
-#include <iostream>
-
-#include "ScopedThreadGuard.h"
+#include "matlab_api.h"
+//#include "ScopedThreadGuard.h"
 
 using std::thread;
-using std::cout;
-using std::endl;
-using std::cin;
+using std::lock_guard;
 
-bool Input::HasCiphertext() {
-    return has_ciphertext;
+/*
+ * Could probably use atomic<bool> instead of these heavy mutexs
+ */
+
+// ===================================================
+// PRIVATE MEMBER FUNCS
+
+void Input::StopListening_Matlab() {
+    lock_guard<mutex> lg{this->m_l_f_mux_};
+    matlab_listening_flag_ = false;
 }
 
-string Input::GetCiphertext(){
-    return matlab_ciphertext;
+void Input::StartListening_Matlab() {
+    lock_guard<mutex> lg{this->m_l_f_mux_};
+    matlab_listening_flag_ = true;
 }
 
-Input::Input() {
+// ===================================================
 
-    has_ciphertext = false;
-    matlab_ciphertext = "";
+// ===================================================
+// PUBLIC MEMBER FUNCS
+
+bool Input::HasCiphertext() const {
+    lock_guard<mutex> lg{this->h_c_mux_};
+    return has_ciphertext_;
+}
+
+void Input::SetHasCiphertext(bool t_f) {
+    lock_guard<mutex> lg{this->h_c_mux_};
+    has_ciphertext_ = t_f;
+    if (!t_f) {
+        StartListening_Matlab();
+    }
+}
+
+string Input::GetCiphertext() const {
+    lock_guard<mutex> lg{this->m_c_mux_};
+    return matlab_ciphertext_;
+}
+
+void Input::SetCiphertext(string&& c_text) {
+    lock_guard<mutex> lg{this->m_c_mux_};
+    matlab_ciphertext_ = std::move(c_text);
+
+    StopListening_Matlab();
 }
 
 void Input::Start() {
 
-    cout << "Input starting" << endl;
+    MatlabAPI m_api(*this);
+    //auto matlab_thread = make_unique<ScopedThreadGuard>(
+            //thread();
+    thread matlab_thread(std::move(m_api));
+    matlab_thread.detach();
+}
 
-    MatlabAPI m_api;
-    auto matlab_thread = make_unique<ScopedThreadGuard>(
-            thread(std::move(m_api), std::ref(matlab_ciphertext), std::ref(has_ciphertext)));
+bool Input::GetListeningStatus_Matlab() const {
+    lock_guard<mutex> lg{this->m_l_f_mux_};
+    return matlab_listening_flag_;
+}
 
-    while (!has_ciphertext) {
-        cout << "inside input.start() while loop" << endl;
-        std::this_thread::sleep_for(std::chrono::seconds(5));
-        cout << matlab_ciphertext << endl;
-    }
+// ===================================================
+
+// ===================================================
+// CTORS DTORS OPTORS
+
+Input::Input() : has_ciphertext_{false}, matlab_listening_flag_{true} {
+    matlab_ciphertext_ = "";
 }
 
 Input::~Input() = default;

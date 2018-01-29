@@ -8,6 +8,7 @@
 
 using std::ios;
 using std::ifstream;
+using std::ofstream;
 using std::string;
 using std::stringstream;
 
@@ -17,25 +18,33 @@ using std::stringstream;
  * popen with a bash script.
  *
  */
+class Input;
 
 class MatlabAPI {
+private:
+    Input& input_parent_;
+
 public:
-    void operator()(string& input_ciphertext, bool& has_ciphertext) {
+    void operator()() {
+        input_parent_.SetHasCiphertext(false);
+        string res;
 
-        bool listen_flag = true;
-        has_ciphertext = false;
-        string res = "";
+        while(true) {
+            WaitSeconds(2);
+            if (input_parent_.GetListeningStatus_Matlab()) {
+                res = GetCiphertextTxt();
 
-        while(listen_flag) {
-            res = GetCiphertextBash();
-
-            if (res != "ERROR") {
-                listen_flag = false;
+                if (res != "ERROR") {
+                    input_parent_.SetCiphertext(std::move(res));
+                    input_parent_.SetHasCiphertext(true);
+                    ResetCipherText();
+                }
             }
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         }
-        input_ciphertext = res;
-        has_ciphertext = true;
+    }
+
+    void WaitSeconds(int i) {
+        std::this_thread::sleep_for(std::chrono::seconds(i));
     }
 
     string GetCiphertextBash() {
@@ -63,11 +72,8 @@ public:
                           ios::in | ios::binary);
 
             stringstream ciphertext_buffer;
-
             ciphertext_buffer << file.rdbuf();
-
             file.close();
-
             return ciphertext_buffer.str();
         }
         catch (const ifstream::failure& e) {
@@ -76,10 +82,28 @@ public:
         }
     }
 
-    MatlabAPI()= default;
+    void ResetCipherText() {
+        ofstream file;
+        file.exceptions( ifstream::failbit | ifstream::badbit);
+        try {
+            file.open("../matlab-script/ciphertext.txt",
+                      ios::out | ios::binary);
+
+            file << "ERROR";
+            file.close();
+        }
+        catch (const ofstream::failure& e) {
+            file.close();
+        }
+    }
+
+    // ctor, move ctor, dtor
+    explicit MatlabAPI(Input& i) : input_parent_{i} {};
+    MatlabAPI(MatlabAPI&& rhs) noexcept : input_parent_{rhs.input_parent_} {}
     ~MatlabAPI() = default;
+
+    // Deleted ctors/opters
     MatlabAPI(const MatlabAPI&) = delete;
     MatlabAPI& operator=(const MatlabAPI&) = delete;
-    MatlabAPI(MatlabAPI&&) = default;
     MatlabAPI& operator=(const MatlabAPI&&) = delete;
 };
