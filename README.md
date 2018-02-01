@@ -9,9 +9,9 @@ The plan for this project is to experiment with some topics and technologies I'v
 * An preliminary Github search revealed there was not an abundance of identical projects already in existence.
 
 ## High Level Plan and Priorities
-* **C++** - Implement the core text decipherment functionality in using Kasiski's lead. 
+* **C++** - Implement the core text decipherment functionality in using Kasiski's lead. **[Ongoing]**
   * Benchmark the code and discover the boundaries between and the conditions that lead to success or failure. For example, length of the ciphertext and key length.
-* **Matlab/Python 3** - Implement and train a model to support the deciphering module with 'best guess' and 'fill in the blanks' capabilities.
+* **Matlab/Python 3** - Implement and train a model to support the deciphering module with 'best guess' and 'fill in the blanks' capabilities. **[Testing stage]**
 * **Matlab/Python 3** - Implement and train a model to read in the characters from a printed ciphertext message via webcam and deliver it to the decipherment module, with the potential to later include handwritten messages. 
   * I want to build this capability in both Matlab and Python 3 in an effort to contrast and compare. 
   * The Matlab implementation requires creation of a MEX files, the  Matlab-C/C++ API.
