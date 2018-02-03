@@ -6,7 +6,7 @@
 TEST_CASE("Matlab api class", "[matlab-basic]") {
 
     Input input;
-    auto m_api = new MatlabAPI(input);
+    auto m_api = new Matlab::MatlabAPI(input);
 
     SECTION("actually gets default constructed") {
         REQUIRE(m_api != nullptr);

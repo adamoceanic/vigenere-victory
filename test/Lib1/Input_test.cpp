@@ -12,6 +12,7 @@ TEST_CASE("Input class basics", "[input-basic]") {
     SECTION("correct default constructed values") {
         REQUIRE(input->GetCiphertext().empty());
         REQUIRE(!input->HasCiphertext());
+        REQUIRE(input->GetListeningStatus_Matlab());
     }
 
     delete(input);

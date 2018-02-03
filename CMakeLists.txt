@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.8)
 #set(CMAKE_CXX_COMPILER "/usr/bin/c++")
+#set(CMAKE_CXX_COMPILER "/usr/bin/g++-7")
 
 project(vigenere-victory)
 
@@ -9,11 +10,14 @@ project(vigenere-victory)
 
 include(CheckCXXCompilerFlag)
 
+check_cxx_compiler_flag("-std=c++17" COMPILER_SUPPORTS_CXX17)
 check_cxx_compiler_flag("-std=c++14" COMPILER_SUPPORTS_CXX14)
 check_cxx_compiler_flag("-std=c++11" COMPILER_SUPPORTS_CXX11)
 check_cxx_compiler_flag("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
 
-if (COMPILER_SUPPORTS_CXX14)
+if (COMPILER_SUPPORTS_CXX17)
+    add_definitions(-std=c++17)
+elseif (COMPILER_SUPPORTS_CXX14)
     add_definitions(-std=c++14)
 elseif (COMPILER_SUPPORTS_CXX11)
     add_definitions(-std=c++11)
@@ -58,6 +62,19 @@ if (COVERALLS)
     set(GCC_OPTIMIZATIONS "")
     set(GCC_COVERAGE "-lgcov")
 endif()
+# ============================================================
+
+# ============================================================
+# Boost - if required. Installed at /usr/local/include
+
+# for boost: -O2 -fno-exceptions -fno-rtti ??
+#find_package(Boost REQUIRED COMPONENTS serialization)
+#set(Boost_USE_MULTITHREAD ON)
+#target_link_libraries(cpp-design-patterns ${Boost_LIBRARIES})
+
+
+# ============================================================
+
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_OPTIMIZATIONS}")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")

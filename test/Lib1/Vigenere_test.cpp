@@ -8,9 +8,7 @@ TEST_CASE("Vigenere class basics", "[vigenere-basic]") {
     SECTION("actually gets default constructed") {
         REQUIRE(vig != nullptr);
     }
-    SECTION("Test method returns 22") {
-        REQUIRE(vig->TestTwentyTwo() == 22);
-    }
+
 
     delete(vig);
 }

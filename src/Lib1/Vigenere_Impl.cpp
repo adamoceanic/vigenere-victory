@@ -31,17 +31,17 @@ void Vigenere_Impl::Start() {
              */
 
             string cipher_text = input_manager_->GetCiphertext();
-            cout << "CIPHERTEXT RECEIVED: " << cipher_text << endl;
+            cout << "CIPHERTEXT RECEIVED: " << cipher_text << '\n';
             vigenere_decipherer_->Decipher(cipher_text);
             /*
              * returns key length and suggestions, other meta data
              */
-            cout << "ACTIVATING SUGGESTION UNIT" << endl;
+            cout << "SUGGESTION UNIT" << '\n';
             std::this_thread::sleep_for(std::chrono::seconds(5));
             /*
              * Best Guess, text analysis etc
              */
-            cout << "SENDING RESULT TO AR UNIT" << endl;
+            cout << "AR UNIT" << endl;
             std::this_thread::sleep_for(std::chrono::seconds(5));
             /*
              * output text then AR to screen

@@ -55,9 +55,7 @@ void Input::SetCiphertext(string&& c_text) {
 
 void Input::Start() {
 
-    MatlabAPI m_api(*this);
-    //auto matlab_thread = make_unique<ScopedThreadGuard>(
-            //thread();
+    Matlab::MatlabAPI m_api(*this);
     thread matlab_thread(std::move(m_api));
     matlab_thread.detach();
 }
