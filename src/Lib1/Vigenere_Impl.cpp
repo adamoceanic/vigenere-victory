@@ -31,7 +31,7 @@ void Vigenere_Impl::Start() {
              */
 
             string cipher_text = input_manager_->GetCiphertext();
-            cout << "CIPHERTEXT RECEIVED: " << cipher_text << '\n';
+            //cout << "CIPHERTEXT RECEIVED: " << cipher_text << '\n';
             vigenere_decipherer_->Decipher(cipher_text);
             /*
              * returns key length and suggestions, other meta data
