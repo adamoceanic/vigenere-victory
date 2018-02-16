@@ -24,7 +24,9 @@ namespace Matlab {
 
     class MatlabAPI {
     private:
-        Input &input_parent_;
+        Input& input_parent_;
+        string file_path_txt_ = {"../matlab-script/ciphertext.txt"};
+        int buffer_size_ = 256;
 
     public:
         void operator()() {
@@ -50,12 +52,12 @@ namespace Matlab {
         }
 
         string GetCiphertextBash() {
-            const char *script_path = "../matlab-script/matlab_get_string.sh\0"; // relative links suck - think of better way for travis
+            const char *script_path = "../matlab-script/matlab_get_string.sh\0";
             FILE *pipe = popen(script_path, "r");
             if (!pipe) {
                 return "ERROR";
             }
-            char buffer[128];        // Make this value a variable
+            char buffer[buffer_size_];
             string result = "";
             while (!feof(pipe)) {
                 if (fgets(buffer, 128, pipe) != nullptr) {
@@ -70,7 +72,7 @@ namespace Matlab {
             ifstream file;
             file.exceptions(ifstream::failbit | ifstream::badbit);
             try {
-                file.open("../matlab-script/ciphertext.txt",
+                file.open(file_path_txt_,
                           ios::in | ios::binary);
 
                 stringstream ciphertext_buffer;
@@ -88,7 +90,7 @@ namespace Matlab {
             ofstream file;
             file.exceptions(ifstream::failbit | ifstream::badbit);
             try {
-                file.open("../matlab-script/ciphertext.txt",
+                file.open(file_path_txt_,
                           ios::out | ios::binary);
 
                 file << "ERROR";
@@ -102,7 +104,10 @@ namespace Matlab {
         // ctor, move ctor, dtor
         explicit MatlabAPI(Input &i) : input_parent_{i} {};
 
-        MatlabAPI(MatlabAPI &&rhs) noexcept : input_parent_{rhs.input_parent_} {}
+        MatlabAPI(MatlabAPI &&rhs) noexcept
+                : input_parent_{rhs.input_parent_},
+                  file_path_txt_{rhs.file_path_txt_},
+                  buffer_size_{rhs.buffer_size_} {}
 
         ~MatlabAPI() = default;
 

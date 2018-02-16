@@ -20,12 +20,14 @@ using std::pair;
 /*
  * CONSIDER STD::MAP INSTEAD OF UNORDERED? HELP WITH SORTING LATER?
  *
+ * CLEANUP TEST CODE AND COMMENTS
+ *
+ * EXCEPTION HANDLING
  */
 
 
 void VigenereDecipherer::removeNgramsBelowOccurrenceThreshold(um_str_vec_t& all_ngrams, int threshold) {
 
-    // delete irrelevant n-grams due to insufficient number of occurrences
     um_str_vec_t::iterator it = all_ngrams.begin();
     while (it != all_ngrams.end())
     {
@@ -44,7 +46,6 @@ um_str_vec_t VigenereDecipherer::getAllNgramsWithLength(const string& cipher_tex
     for (int i = 0; i < length; ++i)
     {
         if (i + ngram_length > length) { continue; }
-
         sub = cipher_text.substr(i, ngram_length);
         //cout << "length :" << ngram_length << " substr: " << sub << endl;
         ngrams[sub].push_back(i);
@@ -88,10 +89,11 @@ VigenereDecipherer::results_info_pair_t VigenereDecipherer::Decipher(const strin
 
     std::array<unsigned int,5> possible_ngram_lengths = { 3, 4, 5, 6, 7};
 
-    vector< future< unordered_map<string, vector<int> > > > futures;
+    vector<future<um_str_vec_t>> futures;
     for (auto pnl : possible_ngram_lengths) {
 
-        futures.emplace_back(async(launch::async, &VigenereDecipherer::searchForRecurringNgramsWithLength, this, std::ref(cipher_text), pnl));
+        futures.emplace_back(async(
+                launch::async, &VigenereDecipherer::searchForRecurringNgramsWithLength, this, std::ref(cipher_text), pnl));
     }
 
     um_str_vec_t all_ngrams;

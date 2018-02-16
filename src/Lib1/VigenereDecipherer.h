@@ -20,12 +20,12 @@ using um_str_vec_t = unordered_map<string, vector<int>>;
 class VigenereDecipherer {
 private:
 
+public:
+    using results_info_pair_t = pair<string, unordered_map<string,int>>;
+
     um_str_vec_t searchForRecurringNgramsWithLength(const string& cipher_text, int ngram_length);
     um_str_vec_t getAllNgramsWithLength(const string& cipher_text, int key_lengths);
     void removeNgramsBelowOccurrenceThreshold(um_str_vec_t& all_ngrams, int threshold);
-
-public:
-    using results_info_pair_t = pair<string, unordered_map<string,int>>;
 
     results_info_pair_t Decipher(const string& ciphertext);
 
