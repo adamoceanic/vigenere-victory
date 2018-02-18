@@ -2,14 +2,13 @@
 |---|---|---|
 | master | [![Build Status](https://travis-ci.org/ajze/vigenere-victory.png)](https://travis-ci.org/ajze/vigenere-victory) | [![Coverage Status](https://coveralls.io/repos/github/ajze/vigenere-victory/badge.svg?branch=master&service=github)](https://coveralls.io/github/ajze/vigenere-victory?branch=master) |
 
-
-[[https://github.com/ajze/vigenere-victory/blob/master/uml/prog.png|alt=octocat]]
-
 # vigenere-victory
 The plan for this project is to experiment with some topics and technologies I've wanted to explore for some time whilst remaining enjoyable and educational. Cryptographical mathematics is a passion of mine and the core of this project will be centred around implementing the 'Kasiski's Analysis' technique for a cryptanalytic attack on a message enciphered using the Vigenere Cipher. Motivations for this decision include:
 * The project lends itself well to the additional elements I want to embelish the core functionality with, such as some maching learning models, multithreading, and implementing cross stack API's.
 * The project is expandable in scope, meaning I can add additional functionality and features to the project/final application as I should desire.
 * An preliminary Github search revealed there was not an abundance of identical projects already in existence.
+
+![alt text](https://raw.githubusercontent.com/ajze/vigenere-victory/master/uml/prog.png)
 
 ## High Level Plan and Priorities
 * **C++** - Implement the core text decipherment functionality in using Kasiski's lead. **[Ongoing]**
