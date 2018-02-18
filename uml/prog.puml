@@ -2,15 +2,16 @@
 
 
 
-Vigenere <|.. InputManager
+
 Vigenere <|.. OutputManager
+Vigenere <|.. InputManager
 
 Display ..|> OutputManager
 
 Vigenere <|.. VigenereDecipherer
 note bottom of VigenereDecipherer : Kasiski examination
 
-Vigenere <|.. TextAnalyser
+VigenereDecipherer <|.. TextAnalyser
 TextAnalyser <|.. ML_Model
 
 Vigenere : Start()
@@ -21,7 +22,7 @@ interface ICiphertext
 
 InputManager --|> IMatlab
 InputManager --|> ICiphertext
-InputManager <|.. MatlabAPI
+InputManager -- MatlabAPI
 
 
 InputManager : hasCiphertext()
@@ -32,7 +33,7 @@ InputManager : getListeningStatus_Matlab()
 InputManager : Start()
 TextAnalyser : predict()
 Display : renderToScreen()
-Display : printToConsole()
+OutputManager : printToConsole()
 
 
 MatlabAPI : getText()
