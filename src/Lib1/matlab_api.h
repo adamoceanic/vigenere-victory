@@ -5,12 +5,15 @@
 #include <sstream>
 #include <chrono>
 #include <thread>
+#include <cstdio>
 
 using std::ios;
 using std::ifstream;
 using std::ofstream;
 using std::string;
 using std::stringstream;
+using std::shared_ptr;
+using std::array;
 
 /*
  * Until I can figure out the matlab-c++ MEX situation this class implements two methods of obtaining the
@@ -26,6 +29,7 @@ namespace Matlab {
     private:
         Input& input_parent_;
         string file_path_txt_ = {"../matlab-script/ciphertext.txt"};
+        const char* bash_file_path = "../matlab-script/matlab_get_string.sh\0";
         int buffer_size_ = 256;
 
     public:
@@ -37,7 +41,6 @@ namespace Matlab {
                 WaitSeconds(2);
                 if (input_parent_.GetListeningStatus_Matlab()) {
                     res = GetCiphertextTxt();
-
                     if (res != "ERROR") {
                         input_parent_.SetCiphertext(std::move(res));
                         input_parent_.SetHasCiphertext(true);
@@ -52,29 +55,24 @@ namespace Matlab {
         }
 
         string GetCiphertextBash() {
-            const char *script_path = "../matlab-script/matlab_get_string.sh\0";
-            FILE *pipe = popen(script_path, "r");
-            if (!pipe) {
-                return "ERROR";
-            }
-            char buffer[buffer_size_];
-            string result = "";
-            while (!feof(pipe)) {
-                if (fgets(buffer, 128, pipe) != nullptr) {
-                    result += buffer;
+
+            array<char, 512> buffer;
+            string result;
+            shared_ptr<FILE> pipe(popen(bash_file_path, "r"), pclose);
+            if (!pipe) { throw std::runtime_error("popen() failed!"); }
+            while (!feof(pipe.get())) {
+               if (fgets(buffer.data(), 512, pipe.get()) != nullptr)
+                   result += buffer.data();
                 }
-            }
-            pclose(pipe);
             return result == "X\n" ? "ERROR" : result;
         }
 
         string GetCiphertextTxt() {
+
             ifstream file;
             file.exceptions(ifstream::failbit | ifstream::badbit);
             try {
-                file.open(file_path_txt_,
-                          ios::in | ios::binary);
-
+                file.open(file_path_txt_, ios::in | ios::binary);
                 stringstream ciphertext_buffer;
                 ciphertext_buffer << file.rdbuf();
                 file.close();
@@ -87,12 +85,11 @@ namespace Matlab {
         }
 
         void ResetCipherText() {
+
             ofstream file;
             file.exceptions(ifstream::failbit | ifstream::badbit);
             try {
-                file.open(file_path_txt_,
-                          ios::out | ios::binary);
-
+                file.open(file_path_txt_, ios::out | ios::binary);
                 file << "ERROR";
                 file.close();
             }

@@ -25,7 +25,6 @@ using std::pair;
  * EXCEPTION HANDLING
  */
 
-
 void VigenereDecipherer::removeNgramsBelowOccurrenceThreshold(um_str_vec_t& all_ngrams, int threshold) {
 
     um_str_vec_t::iterator it = all_ngrams.begin();
@@ -45,9 +44,8 @@ um_str_vec_t VigenereDecipherer::getAllNgramsWithLength(const string& cipher_tex
     um_str_vec_t ngrams;
     for (int i = 0; i < length; ++i)
     {
-        if (i + ngram_length > length) { continue; }
+        if (i + ngram_length > length) { break; }
         sub = cipher_text.substr(i, ngram_length);
-        //cout << "length :" << ngram_length << " substr: " << sub << endl;
         ngrams[sub].push_back(i);
     }
 
@@ -60,19 +58,11 @@ um_str_vec_t VigenereDecipherer::searchForRecurringNgramsWithLength(const string
     cout << "ngram thread started with: " << ngram_length << '\n';
 
     auto ngrams = getAllNgramsWithLength(cipher_text, ngram_length);
-    cout << "filtering ngram occurences of length: " << ngram_length << '\n';
     removeNgramsBelowOccurrenceThreshold(ngrams, 3);
 
-    
     if (ngrams.empty()) {
         cout << "no useful ngrams of length: " << ngram_length << '\n';
     }
-
-    //for (auto& p : res) {
-    //    cout << "substr: " << p.first << ", occurences: " << p.second.size() << endl;
-    //}
-
-    //cout << "total ngrams with substr: " << ngram_length<< " : " << res.size() << endl;
     return ngrams;
 }
 
@@ -80,7 +70,7 @@ VigenereDecipherer::results_info_pair_t VigenereDecipherer::Decipher(const strin
 
     // searchForRepeatingSubstrings
     // deliver a list of substrings and distances between them
-    // suggest best possible key length
+    // suggest best possible key length via index counting and GCD etc
 
     // then start the frequency analysis shifting etc
     // how to represent freq table / results?
@@ -98,21 +88,20 @@ VigenereDecipherer::results_info_pair_t VigenereDecipherer::Decipher(const strin
 
     um_str_vec_t all_ngrams;
     for (auto& fut : futures) {
-
         auto ngrams = fut.get();
-        for (auto& ngram : ngrams) {
-            all_ngrams.insert(make_pair(ngram.first, ngram.second));
+        if (!ngrams.empty()) {
+            for (auto &ngram : ngrams) {
+                all_ngrams.insert(make_pair(ngram.first, ngram.second));
+            }
         }
     }
 
-    /*
     cout << "printing all filtered ngrams from main thread: " << endl;
     for (auto& p : all_ngrams) {
 
         cout << "substr: " << p.first << ", occurences: " << p.second.size() << '\n';
     }
     cout << "total ngrams: " << all_ngrams.size() << endl;
-    */
 
     pair<string, unordered_map<string,int>> result;
 

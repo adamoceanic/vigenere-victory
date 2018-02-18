@@ -56,6 +56,7 @@ void Vigenere_Impl::Start() {
         ++count;
         if (count >= 10) {
             break;
+
         }
     }
 }
