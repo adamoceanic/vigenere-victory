@@ -16,8 +16,8 @@ TEST_CASE("Matlab api class", "[matlab-basic]") {
         REQUIRE(m_api->GetCiphertextBash() == "ERROR");
     }
 
-    SECTION("GetCiphertextTxt working correctly") {
-        REQUIRE(m_api->GetCiphertextTxt() == "ERROR");
+    SECTION("getText() working correctly") {
+        REQUIRE(m_api->getText() == "ERROR");
     }
 
 delete(m_api);
