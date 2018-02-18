@@ -8,6 +8,7 @@ The plan for this project is to experiment with some topics and technologies I'v
 * The project is expandable in scope, meaning I can add additional functionality and features to the project/final application as I should desire.
 * An preliminary Github search revealed there was not an abundance of identical projects already in existence.
 
+A very basic outline likely to change:
 ![alt text](https://raw.githubusercontent.com/ajze/vigenere-victory/master/uml/prog.png)
 
 ## High Level Plan and Priorities
