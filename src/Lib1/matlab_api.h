@@ -40,11 +40,11 @@ namespace Matlab {
             while (true) {
                 WaitSeconds(2);
                 if (input_parent_.GetListeningStatus_Matlab()) {
-                    res = GetCiphertextTxt();
+                    res = getText();
                     if (res != "ERROR") {
                         input_parent_.SetCiphertext(std::move(res));
                         input_parent_.SetHasCiphertext(true);
-                        ResetCipherText();
+                        resetText();
                     }
                 }
             }
@@ -67,7 +67,7 @@ namespace Matlab {
             return result == "X\n" ? "ERROR" : result;
         }
 
-        string GetCiphertextTxt() {
+        string getText() {
 
             ifstream file;
             file.exceptions(ifstream::failbit | ifstream::badbit);
@@ -84,7 +84,7 @@ namespace Matlab {
             }
         }
 
-        void ResetCipherText() {
+        void resetText() {
 
             ofstream file;
             file.exceptions(ifstream::failbit | ifstream::badbit);
