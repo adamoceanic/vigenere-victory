@@ -13,6 +13,18 @@ TEST_CASE("Input class basics", "[input-basic]") {
         REQUIRE(input->GetCiphertext().empty());
         REQUIRE(!input->HasCiphertext());
         REQUIRE(input->GetListeningStatus_Matlab());
+        REQUIRE(input->GetListeningStatus_Matlab());
+    }
+
+    SECTION("SetHasCiphertext()") {
+        input->SetHasCiphertext(true);
+        REQUIRE(input->HasCiphertext());
+    }
+
+    SECTION("SetCiphertext()") {
+        string ciphertext_test = "HELLOTHISISCIPHER";
+        input->SetCiphertext(std::move(ciphertext_test));
+        REQUIRE(input->GetCiphertext() == "HELLOTHISISCIPHER");
     }
 
     delete(input);
