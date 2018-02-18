@@ -2,8 +2,8 @@
 |---|---|---|
 | master | [![Build Status](https://travis-ci.org/ajze/vigenere-victory.png)](https://travis-ci.org/ajze/vigenere-victory) | [![Coverage Status](https://coveralls.io/repos/github/ajze/vigenere-victory/badge.svg?branch=master&service=github)](https://coveralls.io/github/ajze/vigenere-victory?branch=master) |
 
-![alt text](https://raw.githubusercontent.com/ajze/vigenere-victory/master/uml/prog.png)
-[[https://raw.githubusercontent.com/ajze/vigenere-victory/master/uml/prog.png]]
+
+[[https://github.com/ajze/vigenere-victory/blob/master/uml/prog.png|alt=octocat]]
 
 # vigenere-victory
 The plan for this project is to experiment with some topics and technologies I've wanted to explore for some time whilst remaining enjoyable and educational. Cryptographical mathematics is a passion of mine and the core of this project will be centred around implementing the 'Kasiski's Analysis' technique for a cryptanalytic attack on a message enciphered using the Vigenere Cipher. Motivations for this decision include:
