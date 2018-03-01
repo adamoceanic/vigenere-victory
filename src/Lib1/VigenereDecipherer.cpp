@@ -130,7 +130,7 @@ int VigenereDecipherer::getKeyLength(vector<vector<int>>& all_ngram_occurrences)
     return all_GCDs_Sorted.top().first;
 }
 
-VigenereDecipherer::results_info_pair_t VigenereDecipherer::Decipher(const string& cipher_text) {
+int VigenereDecipherer::Decipher(const string& cipher_text) {
 
     // GET REPEATING NGRAMS AND NUMBER OF OCCURRENCES
     std::array<unsigned int,5> possible_ngram_lengths = { 3, 4, 5, 6, 7};
@@ -156,9 +156,10 @@ VigenereDecipherer::results_info_pair_t VigenereDecipherer::Decipher(const strin
     // GET THE LIKELY KEY LENGTH
     int key_length = getKeyLength(all_ngram_occurrences);
 
+
+
     // FREQUENCY ANALYSIS
 
-    pair<string, unordered_map<string,int>> result;
 
-    return result;
+    return key_length;
 }

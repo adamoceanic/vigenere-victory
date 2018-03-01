@@ -42,7 +42,7 @@ public:
     vector<int> getGCDs(const vector<vector<int>>& occurrences,
                                     int begin, int end);
 
-    results_info_pair_t Decipher(const string& ciphertext);
+    int Decipher(const string& ciphertext);
 
     VigenereDecipherer() = default;
     ~VigenereDecipherer() = default;
