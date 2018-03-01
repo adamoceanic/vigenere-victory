@@ -13,7 +13,6 @@ class Vigenere_Impl;
     public:
         void Start();
 
-
         Vigenere();
 
         ~Vigenere();

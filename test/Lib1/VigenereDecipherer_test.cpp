@@ -60,6 +60,28 @@ TEST_CASE("VigenereDecipher class basics", "[vigenere-decipherer]") {
         auto search5 = vig_dec->searchForRecurringNgramsWithLength(test_ciphertext_long,5);
         REQUIRE(search5.size() == 16);
     }
+
+    SECTION("getKeyLength", "[vigenere-decipherer]") {
+        vector<int> x{33, 66, 99};     // 33
+        vector<int> y{10, 15, 25, 30}; // 5
+        vector<int> z{15, 20, 25, 30}; // 5
+        vector<int> t{18, 30, 48, 54}; // 6
+        vector<int> c{18, 30, 48, 54}; // 6
+        vector<int> v{18, 30, 48, 54}; // 6
+        vector<int> q{0, 49, 56, 63};  // 7
+
+        vector<vector<int>> occurrences;
+        occurrences.emplace_back(x);
+        occurrences.emplace_back(y);
+        occurrences.emplace_back(z);
+        occurrences.emplace_back(t);
+        occurrences.emplace_back(c);
+        occurrences.emplace_back(v);
+        occurrences.emplace_back(q);
+
+        REQUIRE(vig_dec->getKeyLength(occurrences) == 6);
+    }
+
     delete(vig_dec);
 }
 

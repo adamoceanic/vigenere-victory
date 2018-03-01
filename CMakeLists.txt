@@ -34,7 +34,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic -pipe")
 set(CMAKE_EXE_LINKER_FLAGS "-pthread")
-set(GCC_OPTIMIZATIONS "-g -O2")
+set(GCC_OPTIMIZATIONS "-g -O0")
 set(GCC_COVERAGE "")
 
 # -lstdc++fs - for safe keeping (--enable-libstdcxx-filesystem-ts)
