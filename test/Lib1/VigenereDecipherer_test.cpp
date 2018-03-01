@@ -2,17 +2,17 @@
 
 #include "src/Lib1/VigenereDecipherer.h"
 
-TEST_CASE("VigenereDecipher class basics", "[vigenere-decipherer]") {
+TEST_CASE("VigenereDecipherer class basics", "[vigenere-decipherer]") {
     // ========================================
     // Setup
     auto vig_dec = new VigenereDecipherer();
 
     // setup for getAllNgramsWithLength()
-    um_str_vec_t all_ngrams;
+    VigenereDecipherer::um_str_vec_t all_ngrams;
     string test_ciphertext = "NIGFMNGCGFBHISSMVWTL";
 
     // setup for removeNgramsBelowOccurrenceThreshold()
-    um_str_vec_t remove_ngrams;
+    VigenereDecipherer::um_str_vec_t remove_ngrams;
     int threshold = 3;
     vector<int> count = {1,2,3};
     vector<int> count2 = {1,2};
@@ -22,7 +22,7 @@ TEST_CASE("VigenereDecipher class basics", "[vigenere-decipherer]") {
     remove_ngrams.insert({"TEST3", count3});
 
     // setup for searchForRecurringNgramsWithLength()
-    um_str_vec_t search_ngrams;
+    VigenereDecipherer::um_str_vec_t search_ngrams;
     string test_ciphertext_long = "NIGFMNGCGFBHISSMVWTLNIGFMNGCGFBHISSMVWTLNIGFMNGCGFBHISSMVWTL";
 
 
@@ -42,7 +42,7 @@ TEST_CASE("VigenereDecipher class basics", "[vigenere-decipherer]") {
 
         vig_dec->removeNgramsBelowOccurrenceThreshold(remove_ngrams, threshold);
 
-        um_str_vec_t::iterator it = remove_ngrams.begin();
+        VigenereDecipherer::um_str_vec_t::iterator it = remove_ngrams.begin();
         while (it != remove_ngrams.end())
         {
             if (it->second.size() < threshold) {
