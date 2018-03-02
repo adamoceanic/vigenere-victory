@@ -11,6 +11,9 @@ The plan for this project is to experiment with some topics and technologies I'v
 A very basic outline likely to change:
 ![alt text](https://raw.githubusercontent.com/ajze/vigenere-victory/master/uml/prog.png)
 
+### Updates
+* **27/02/18** - Correctly returning the key length for keys of length 3, 4, 5, 6, and 7. All the test messages so far have been above 1000 characters and I still need to find a lower bound on message length where the accuracy begins to drop.
+
 ## High Level Plan and Priorities
 * **C++** - Implement the core text decipherment functionality in using Kasiski's lead. **[Ongoing]**
   * Benchmark the code and discover the boundaries between and the conditions that lead to success or failure. For example, length of the ciphertext and key length.
