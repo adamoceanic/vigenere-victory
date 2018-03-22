@@ -13,9 +13,12 @@ A very basic outline likely to change:
 
 ### Updates
 * **27/02/18** - Correctly returning the key length for keys of length 3, 4, 5, 6, and 7. All the test messages so far have been above 1000 characters and I still need to find a lower bound on message length where the accuracy begins to drop.
+* **10/03/18** - Correctly returning the key length for keys of length 3, 4, 5, 6, and 7 down to messages of 800 characters. 
+Below 800 characters keys of length 5 are being deduced as length 10 for a reason I still need to investigate.
+* **21/03/18** - Correctly returning the encyption key and key length for keys of length 3, 4, 5, 6, and 7 down to messages of 800 characters. From detection of an input string to a successful cryptanalysis attack is taking between 2 and 5 milliseconds. The only thing left to do is implement the Vigenere tableau itself so the program can return the decrypted message.
 
 ## High Level Plan and Priorities
-* **C++** - Implement the core text decipherment functionality in using Kasiski's lead. **[Ongoing]**
+* **C++** - Implement the core text decipherment functionality in using Kasiski's lead. **[V.1 Finished]**
   * Benchmark the code and discover the boundaries between and the conditions that lead to success or failure. For example, length of the ciphertext and key length.
 * **Matlab/Python 3** - Implement and train a model to support the deciphering module with 'best guess' and 'fill in the blanks' capabilities. **[Testing stage]**
 * **Matlab/Python 3** - Implement and train a model to read in the characters from a printed ciphertext message via webcam and deliver it to the decipherment module, with the potential to later include handwritten messages. 
