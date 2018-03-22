@@ -73,7 +73,7 @@ void Vigenere_Impl::Start() {
            std::this_thread::sleep_for(std::chrono::seconds(5));
         }
 
-        ++count;              
+        ++count;
         if (count >= 10) {
             break;
 
