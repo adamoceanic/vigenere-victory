@@ -74,10 +74,6 @@ before_install:
   - export COVERALLS_SERVICE_NAME=travis-ci
   - export COVERALLS_REPO_TOKEN=qMnxOmVdPZQAy8NayupByFotwClBMzdjN
 
-install:
-  - if [ "$CXX" == "clang++" ];
-    then export CXXFLAGS="-stdlib=libc++"
-
 script:
   - mkdir build
   - cd build
