@@ -82,6 +82,13 @@ TEST_CASE("VigenereDecipherer class basics", "[vigenere-decipherer]") {
         REQUIRE(vig_dec->getKeyLength(occurrences) == 6);
     }
 
+    SECTION("columniseCipherText", "[vigenere-decipherer]") {
+
+        auto columnise = vig_dec->columniseCipherText(test_ciphertext_long, 6);
+        REQUIRE(columnise.size() == 6);
+        REQUIRE(columnise[0].size() == 10);
+    }
+
     delete(vig_dec);
 }
 

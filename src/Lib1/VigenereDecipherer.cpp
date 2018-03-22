@@ -4,10 +4,14 @@
 #include <future>
 #include <queue>
 
+#include <cmath>
+#include <algorithm>
+
 using std::future;
 using std::async;
 using std::launch;
 using std::priority_queue;
+using std::rotate;
 
 /*
  * CLEANUP TEST CODE AND COMMENTS
@@ -130,7 +134,104 @@ int VigenereDecipherer::getKeyLength(vector<vector<int>>& all_ngram_occurrences)
     return all_GCDs_Sorted.top().first;
 }
 
-int VigenereDecipherer::Decipher(const string& cipher_text) {
+vector<vector<char>> VigenereDecipherer::columniseCipherText(const string& cipher_text, int num_cols) {
+
+    vector<vector<char>> columns(num_cols);
+    for (int i = 0; i < cipher_text.size(); ++i) {
+        columns[i % num_cols].push_back(cipher_text[i]);
+    }
+    return columns;
+}
+
+vector<double> VigenereDecipherer::getColumnCharCount(const vector<char>& column) {
+
+    vector<double> char_counts;
+    char_counts.reserve(26);
+
+    double cum_count = 0;
+    unordered_map<char, int> freqs;
+    freqs.reserve(26);
+
+    for (auto& letter : column) {
+        freqs[letter]++;
+        ++cum_count;
+    }
+    for (char c : eng_alphabet_) {
+        auto found = freqs.find(c);
+        if (found != freqs.end()) {
+            char_counts.push_back((freqs[c] / cum_count));
+        }
+        else {
+            char_counts.push_back(0);
+        }
+    }
+    return char_counts;
+}
+
+vector<vector<double>> VigenereDecipherer::getAllCharCounts(const vector<vector<char>>& columns) {
+
+    vector<future<vector<double>>> futures;
+    for (const auto& column : columns) {
+        futures.emplace_back(async(launch::async, &VigenereDecipherer::getColumnCharCount, this, std::ref(column)));
+    }
+    vector<vector<double>> all_char_counts;
+    all_char_counts.reserve(columns.size());
+
+    for (auto& fut : futures) {
+        auto counts = fut.get();
+        all_char_counts.push_back(std::move(counts));
+    }
+    return all_char_counts;
+}
+
+
+double VigenereDecipherer::calcRSS (const array<double, 26>& eng_freqs, vector<double>& relative_freqs) {
+    double rss = 0;
+    for (int i = 0; i < eng_freqs.size(); ++i) {
+        rss += pow((eng_freqs[i] - relative_freqs[i]), 2);
+    }
+    return rss;
+}
+
+
+double VigenereDecipherer::calcRMSE (double rss, double value_count) {
+    return sqrt((1 / value_count) * rss);
+}
+
+char VigenereDecipherer::findKeyChar(const array<double, 26>& eng_freqs, vector<double>& relative_freqs) {
+
+    double lowest_rmse = 1000;
+    int shift_num = 0;
+    int shift_counter = 0;
+
+    for (int i = 0; i < eng_freqs.size(); ++i) {
+        double rss;
+        double rmse;
+
+        rss = calcRSS(eng_freqs, relative_freqs);
+        rmse = calcRMSE(rss, 26);
+
+        if (rmse < lowest_rmse) {
+            lowest_rmse = rmse;
+            shift_num = shift_counter;
+        }
+        std::rotate(relative_freqs.begin(), relative_freqs.begin() + 1, relative_freqs.end());
+        ++shift_counter;
+    }
+    return eng_alphabet_[shift_num];
+}
+
+string VigenereDecipherer::getKey(vector<vector<double>> all_relative_frequencies) {
+
+    string key;
+    for (auto& rel_freq : all_relative_frequencies) {
+        char key_char = findKeyChar(english_frequencies_, rel_freq);
+        key += key_char;
+    }
+    return key;
+}
+
+pair<string, int> VigenereDecipherer::Decipher(const string& cipher_text) {
 
     // GET REPEATING NGRAMS AND NUMBER OF OCCURRENCES
     std::array<unsigned int,5> possible_ngram_lengths = { 3, 4, 5, 6, 7};
@@ -156,10 +257,18 @@ int VigenereDecipherer::Decipher(const string& cipher_text) {
     // GET THE LIKELY KEY LENGTH
     int key_length = getKeyLength(all_ngram_occurrences);
 
-
-
     // FREQUENCY ANALYSIS
+    // columnise the string
+    auto ciphertext_columns = columniseCipherText(cipher_text, key_length);
+
+    // analyse the relative frequencies of each column
+    auto all_relative_frequencies = getAllCharCounts(ciphertext_columns);
+
+    // deduce key via freq analysis and shifting
+    string encryption_key = getKey(all_relative_frequencies);
 
 
-    return key_length;
+    // DECODE THE MESSAGE
+
+    return pair<string, int>(encryption_key, key_length);
 }

@@ -12,6 +12,8 @@ using std::make_unique;
 using std::cout;
 using std::endl;
 
+using namespace std::chrono;
+
 // ===================================================
 // PUBLIC MEMBER FUNCS
 
@@ -25,24 +27,42 @@ void Vigenere_Impl::Start() {
 
     while (true) {
         cout << "Listening for MATLAB inputs" << endl;
+
+
         if (input_manager_->HasCiphertext()) {
+
+            auto t1 = high_resolution_clock::now();
+
             /*
              * Do the things
              */
-
             string cipher_text = input_manager_->GetCiphertext();
+
+            if (cipher_text.size() < 500) {
+                cout << "CIPHERTEXT TOO SHORT" << '\n';
+                break;
+            }
+
             cout << "CIPHERTEXT RECEIVED: " << '\n';
-            int key_length = vigenere_decipherer_->Decipher(cipher_text);
-            cout << "likely key length: " << key_length << '\n';
             /*
-             * returns key length and suggestions, other meta data
+             * returns key,  key length other meta data
              */
-            cout << "SUGGESTION UNIT" << '\n';
-            std::this_thread::sleep_for(std::chrono::seconds(5));
+            auto [key, key_length] = vigenere_decipherer_->Decipher(cipher_text);
+
+            auto t2 = high_resolution_clock::now();
+
+            cout << "likely key: " << key << ", likely key length: " << key_length << '\n';
+
+            auto duration = duration_cast<milliseconds>(t2 - t1).count();
+            cout << "time: " << duration  << " ms: " << '\n';
+
+            //cout << "SUGGESTION UNIT" << '\n';
+            //std::this_thread::sleep_for(std::chrono::seconds(5));
+
             /*
              * Best Guess, text analysis etc
              */
-            cout << "AR UNIT" << endl;
+            //cout << "AR UNIT" << endl;
             std::this_thread::sleep_for(std::chrono::seconds(5));
             /*
              * output text then AR to screen
@@ -53,8 +73,7 @@ void Vigenere_Impl::Start() {
            std::this_thread::sleep_for(std::chrono::seconds(5));
         }
 
-
-        ++count;
+        ++count;              
         if (count >= 10) {
             break;
 
