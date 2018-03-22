@@ -61,6 +61,7 @@ if (COVERALLS)
     #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}")
     set(GCC_OPTIMIZATIONS "")
     set(GCC_COVERAGE "-lgcov")
+    add_definitions(-stdlib=libc++)
 endif()
 # ============================================================
 

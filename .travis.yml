@@ -70,7 +70,7 @@ matrix:
 before_install:
   - sudo apt-get update -qq
   - pip install --user cpp-coveralls
-  - sudo apt-get install -y -qq build-essential cmake curl lcov
+  - sudo apt-get install -y -qq build-essential cmake curl lcov libc++-dev
   - export COVERALLS_SERVICE_NAME=travis-ci
   - export COVERALLS_REPO_TOKEN=qMnxOmVdPZQAy8NayupByFotwClBMzdjN
 
