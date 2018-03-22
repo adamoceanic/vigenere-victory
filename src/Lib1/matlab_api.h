@@ -6,6 +6,7 @@
 #include <chrono>
 #include <thread>
 #include <cstdio>
+#include <array>
 
 using std::ios;
 using std::ifstream;
