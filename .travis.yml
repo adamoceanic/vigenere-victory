@@ -5,14 +5,7 @@ language: cpp
 
 matrix:
   include:
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-4.9
-      env: COMPILER=g++-4.9
+
     - compiler: gcc
       addons:
         apt:
@@ -21,6 +14,7 @@ matrix:
           packages:
             - g++-5
       env: COMPILER=g++-5
+
     - compiler: gcc
       addons:
         apt:
@@ -29,6 +23,7 @@ matrix:
           packages:
             - g++-6
       env: COMPILER=g++-6
+
     - compiler: gcc
       addons:
         apt:
@@ -37,6 +32,7 @@ matrix:
           packages:
             - g++-7
       env: COMPILER=g++-7
+
     - compiler: clang
       addons:
         apt:
@@ -46,6 +42,7 @@ matrix:
           packages:
             - clang-3.6
       env: COMPILER=clang++-3.6
+
     - compiler: clang
       addons:
         apt:
@@ -77,13 +74,13 @@ before_install:
 script:
   - mkdir build
   - cd build
-  - if [ "$CXX" == "clang++" ]; then
-      echo $CXX;
-      echo "clang++ compiling"
+  - if [ $CXX == "clang++" ]; then
       cmake --enable-gcov -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS=-stdlib=libc++ -DCMAKE_CXX_COMPILER=$COMPILER .. && make;
+      echo $CXX
+      echo "clang++ compiling"
     else
       echo "g++ compiling"
-      cmake --enable-gcov -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=$COMPILER .. && make;
+      cmake --enable-gcov -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=$COMPILER .. && make
     fi
   - make coveralls
   - ./VigenereTests
