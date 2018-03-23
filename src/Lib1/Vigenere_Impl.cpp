@@ -47,11 +47,11 @@ void Vigenere_Impl::Start() {
             /*
              * returns key,  key length other meta data
              */
-            auto result_pair = vigenere_decipherer_->Decipher(cipher_text);
+            auto [key, key_length] = vigenere_decipherer_->Decipher(cipher_text);
 
             auto t2 = high_resolution_clock::now();
 
-            cout << "likely key: " << result_pair.first << ", likely key length: " << result_pair.second << '\n';
+            cout << "likely key: " << key << ", likely key length: " << key_length << '\n';
 
             auto duration = duration_cast<milliseconds>(t2 - t1).count();
             cout << "time: " << duration  << " ms: " << '\n';
