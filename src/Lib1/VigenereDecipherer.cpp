@@ -225,7 +225,7 @@ string VigenereDecipherer::getKey(vector<vector<double>> all_relative_frequencie
 
     string key;
     for (auto& rel_freq : all_relative_frequencies) {
-        char key_char = findKeyChar(english_frequencies_, rel_freq);
+        char key_char = findKeyChar(VigenereDecipherer::english_frequencies_, rel_freq);
         key += key_char;
     }
     return key;
