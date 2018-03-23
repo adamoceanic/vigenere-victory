@@ -77,8 +77,9 @@ before_install:
 script:
   - mkdir build
   - cd build
-  - if [ "$CXX" == "clang++" ];
-      then cmake --enable-gcov -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS=-stdlib=libc++ -DCMAKE_CXX_COMPILER=$COMPILER .. && make;
-      else cmake --enable-gcov -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=$COMPILER .. && make;
+  - if [ "$CXX" == "clang++" ]; then
+      cmake --enable-gcov -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS=-stdlib=libc++ -DCMAKE_CXX_COMPILER=$COMPILER .. && make;
+    else cmake --enable-gcov -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=$COMPILER .. && make;
+    fi
   - make coveralls
   - ./VigenereTests
