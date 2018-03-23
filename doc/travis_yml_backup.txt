@@ -53,6 +53,16 @@ matrix:
             - clang-3.7
       env: COMPILER=clang++-3.7
 
+    - compiler: clang
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-5.0
+          packages:
+            - clang-5.0
+    env: COMPILER=clang++-5.0
+
 
 before_install:
   - sudo apt-get update -qq

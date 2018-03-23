@@ -47,26 +47,27 @@ void Vigenere_Impl::Start() {
             /*
              * returns key,  key length other meta data
              */
-            auto [key, key_length] = vigenere_decipherer_->Decipher(cipher_text);
+            auto result_pair = vigenere_decipherer_->Decipher(cipher_text);
 
             auto t2 = high_resolution_clock::now();
 
-            cout << "likely key: " << key << ", likely key length: " << key_length << '\n';
+            cout << "likely key: " << result_pair.first << ", likely key length: " << result_pair.second << '\n';
 
             auto duration = duration_cast<milliseconds>(t2 - t1).count();
             cout << "time: " << duration  << " ms: " << '\n';
 
+            /*
+             * Best Guess, text analysis etc
+             */
             //cout << "SUGGESTION UNIT" << '\n';
             //std::this_thread::sleep_for(std::chrono::seconds(5));
 
             /*
-             * Best Guess, text analysis etc
+             * output text then AR to screen
              */
             //cout << "AR UNIT" << endl;
             std::this_thread::sleep_for(std::chrono::seconds(5));
-            /*
-             * output text then AR to screen
-             */
+
             input_manager_->SetHasCiphertext(false);
         }
         else {
