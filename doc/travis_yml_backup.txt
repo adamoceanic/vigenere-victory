@@ -1,3 +1,27 @@
+- compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-4.9
+      env: COMPILER=g++-4.9
+
+// attempt to switch compilers to make clang-5.0 support std::make_unique
+
+  - if [ "$CXX" == "g++" ]; then
+      cmake --enable-gcov -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=$COMPILER .. && make;
+      echo "g++ compiling";
+    fi
+  - if [ "$CXX" == "clang++" ]; then
+      cmake --enable-gcov -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS=-stdlib=libc++ -DCMAKE_CXX_COMPILER=$COMPILER .. && make;
+      echo "clang++ compiling";
+    fi
+
+
+
+
+
 # Use new trusty images, should yield newer compilers and packages
 sudo: required
 dist: trusty
