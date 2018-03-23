@@ -78,8 +78,12 @@ script:
   - mkdir build
   - cd build
   - if [ "$CXX" == "clang++" ]; then
+      echo $CXX;
+      echo "clang++ compiling"
       cmake --enable-gcov -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS=-stdlib=libc++ -DCMAKE_CXX_COMPILER=$COMPILER .. && make;
-    else cmake --enable-gcov -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=$COMPILER .. && make;
+    else
+      echo "g++ compiling"
+      cmake --enable-gcov -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=$COMPILER .. && make;
     fi
   - make coveralls
   - ./VigenereTests
