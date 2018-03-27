@@ -1,9 +1,11 @@
 #pragma once
 
 #include <memory>
+#include <string>
 
 using std::make_unique;
 using std::unique_ptr;
+using std::string;
 
 class Vigenere_Impl;
 
@@ -11,7 +13,7 @@ class Vigenere_Impl;
     private:
         unique_ptr<Vigenere_Impl> pImpl;
     public:
-        void Start();
+        void Start(string flag = "--desktop");
 
         Vigenere();
 
