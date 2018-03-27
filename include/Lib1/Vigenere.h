@@ -13,7 +13,7 @@ class Vigenere_Impl;
     private:
         unique_ptr<Vigenere_Impl> pImpl;
     public:
-        void Start(string flag = "--desktop");
+        void Start(string flag = "--cmd");
 
         Vigenere();
 

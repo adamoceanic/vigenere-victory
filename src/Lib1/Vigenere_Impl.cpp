@@ -21,7 +21,7 @@ using namespace std::chrono;
 
 void Vigenere_Impl::Start(string flag /*"= --desktop"*/) {
 
-    if (flag == "--desktop") {
+    if (flag == "--cmd") {
         MessageBorderer::print(welcome_message_);
 
         string cipher_text;
@@ -34,12 +34,16 @@ void Vigenere_Impl::Start(string flag /*"= --desktop"*/) {
             }
             //cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-            auto[key, key_length] = vigenere_decipherer_->Decipher(cipher_text);
-            cout << "Key: " << key << ", Key length: " << key_length << '\n';
-            cout << "Incorrect? Please let me know!" << '\n';
-            cout << endl;
+            if (cipher_text.length() < 800) {
+                cout << "ciphertexts of length less than 800 have not been fully tested yet!" << '\n';
+            }
+            else {
+                auto[key, key_length] = vigenere_decipherer_->Decipher(cipher_text);
+                cout << "Key: " << key << ", Key length: " << key_length << '\n';
+                cout << "Incorrect? Please let me know!" << '\n';
+                cout << endl;
+            }
         }
-
     }
     else { // --matlab passed
 
@@ -52,14 +56,10 @@ void Vigenere_Impl::Start(string flag /*"= --desktop"*/) {
         while (true) {
             cout << "Listening for MATLAB inputs" << endl;
 
-
             if (input_manager_->HasCiphertext()) {
 
                 auto t1 = high_resolution_clock::now();
 
-                /*
-                 * Do the things
-                 */
                 string cipher_text = input_manager_->GetCiphertext();
 
                 if (cipher_text.size() < 500) {
@@ -105,9 +105,6 @@ void Vigenere_Impl::Start(string flag /*"= --desktop"*/) {
             }
         }
     }
-
-
-
 }
 // ===================================================
 

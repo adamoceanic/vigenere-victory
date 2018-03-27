@@ -22,7 +22,7 @@ private:
                                       " no whitespace, numbers, or punctuation.",
                                       " You can experiment with some test ciphers from the",
                                       " file 'test_ciphers.txt' inside the 'doc' directory.",
-                                      " Paste in an encrypted text (800+ characters) and press enter:"};
+                                      " Paste an encrypted text (~800+ characters) and press enter:"};
 
 public:
     void Start(string flag);
