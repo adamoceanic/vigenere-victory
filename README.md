@@ -18,6 +18,7 @@ Below 800 characters keys of length 5 are being deduced as length 10 for a reaso
 * **21/03/18** - Correctly returning the encyption key and key length for keys of length 3, 4, 5, 6, and 7 down to messages of 800 characters. From detection of an input string to a successful cryptanalysis attack is taking between 2 and 5 milliseconds. The only thing left to do is implement the Vigenere tableau itself so the program can return the decrypted message.
 * **23/03/18** - I need to put this project to bed for a while so I can focus on my freelancing as well as make a start with the project's accompying blog post. I have decided I also want to have the option to decouple the application from MATLAB, so the end user can choose to run with the MATLAB api, or simply paste ciphertexts into the command line. I have also started a Qt project for a rudimentary gui. In TravisCI I've also had to ditch building against g++5/6 and clang-3.6/3.7 because they were getting in the way of C++14/17 features I wanted to use like `constexpr` and `auto [first, second]` for tuple unpacking. I am struggling to get clang-5.0 working with Travis' Trusty (14.04) image, so I am only building with clang locally at the moment. 
 * **27/03/18** - The application now defaults to accepting the ciphertext via the command line. This can be overridden by starting the application with `./VigenereVictory --matlab`. This won't be much use at all to anybody but me right now because the location where it searches for the Matlab output is currently hardcoded in for my ease. This will change when I ship the GUI. The decryption functionality is being tested and it will be added soon so the app can spit out the plaintext, also support for lowercase text. Making a downloadable binary available.
+* **28/03/18** - Now printing the decryptyed plaintext to the shell.
 
 ## How to Use
 * Build the project via Cmake (tested and working with GCC7 and Clang-5) or download the [Linux](https://work.jonze.uk/wp-content/uploads/2018/02/Linux.zip) or [macOS](https://work.jonze.uk/wp-content/uploads/2018/02/macOS.zip) binary.
@@ -30,7 +31,7 @@ Below 800 characters keys of length 5 are being deduced as length 10 for a reaso
   * (I am going to write a script to perform all of the above during my next session.)
 * Paste the ciphertext string in at the prompt and, (until I implement the decoder) you should finish with something like this:
 
-![alt text](https://work.jonze.uk/wp-content/uploads/2018/02/Screenshot-from-2018-03-27-22-56-06.png)
+![alt text](https://work.jonze.uk/wp-content/uploads/2018/02/Screenshot-from-2018-03-28-18-50-31.png)
 
 * The reason for enforcing monocase strings with no numbers at this time is that I wanted to authentically replicate the types of messages that the Vigenère Cipher and other polyalphabetic ciphers would have been used for in the times of Giovan Battista Bellaso, the cipher's originator, (and not Blaise de Vigenère!). Numbers and whitespace were considered to convey too much derivable context to an informed interceptor, even before cryptanalysis on the message had begun. It would have also necessitated revisions to Johannes Trithemius' widely accepted [tabula recta](https://en.wikipedia.org/wiki/Tabula_recta#Trithemius_cipher), from which the Vigenère cipher is based.
   
