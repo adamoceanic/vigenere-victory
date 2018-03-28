@@ -32,7 +32,7 @@ Below 800 characters keys of length 5 are being deduced as length 10 for a reaso
 
 ![alt text](https://work.jonze.uk/wp-content/uploads/2018/02/Screenshot-from-2018-03-27-22-56-06.png)
 
-* The reason for enforcing monocase strings with no numbers at this time is that I wanted to authentically replicate the types of messages that the Vigenere Cipher and other polyalphabetic ciphers would have been used for in the times of Giovan Battista Bellaso, the cipher's originator, (and not Blaise de Vigenère!). Numbers and whitespace were considered to convey too much derivable context to an informed interceptor, even before cryptanalysis on the message had begun. 
+* The reason for enforcing monocase strings with no numbers at this time is that I wanted to authentically replicate the types of messages that the Vigenère Cipher and other polyalphabetic ciphers would have been used for in the times of Giovan Battista Bellaso, the cipher's originator, (and not Blaise de Vigenère!). Numbers and whitespace were considered to convey too much derivable context to an informed interceptor, even before cryptanalysis on the message had begun. It would have also necessitated revisions to Johannes Trithemius' widely accepted [tabula recta](https://en.wikipedia.org/wiki/Tabula_recta#Trithemius_cipher), from with the Vigenère cipher is based.
   
 
 ## High Level Plan and Priorities
