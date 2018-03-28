@@ -29,11 +29,11 @@ Below 800 characters keys of length 5 are being deduced as length 10 for a reaso
   * [This](https://convertcase.net/) to convert the message to upper case.
   * And finally, [this](https://www.dcode.fr/vigenere-cipher) to encode the message with a key.
   * (I am going to write a script to perform all of the above during my next session.)
-* Paste the ciphertext string in at the prompt and, (until I implement the decoder) you should finish with something like this:
+* Paste the ciphertext string in at the prompt and you should finish with something like this:
 
 ![alt text](https://work.jonze.uk/wp-content/uploads/2018/02/Screenshot-from-2018-03-28-18-50-31.png)
 
-* The reason for enforcing monocase strings with no numbers at this time is that I wanted to authentically replicate the types of messages that the Vigenère Cipher and other polyalphabetic ciphers would have been used for in the times of Giovan Battista Bellaso, the cipher's originator, (and not Blaise de Vigenère!). Numbers and whitespace were considered to convey too much derivable context to an informed interceptor, even before cryptanalysis on the message had begun. It would have also necessitated revisions to Johannes Trithemius' widely accepted [tabula recta](https://en.wikipedia.org/wiki/Tabula_recta#Trithemius_cipher), from which the Vigenère cipher is based.
+* The reason for enforcing monocase strings with no numbers at this time is that I wanted to authentically replicate the types of messages that the Vigenère Cipher and other polyalphabetic ciphers would have been used for in the times of Giovan Battista Bellaso, the cipher's originator, (and not Blaise de Vigenère!). Numbers and whitespace were considered to convey too much derivable context to an informed interceptor, even before cryptanalysis on the message had begun. To safely include them, it would have also necessitated revisions to Johannes Trithemius' widely accepted [tabula recta](https://en.wikipedia.org/wiki/Tabula_recta#Trithemius_cipher), from which the Vigenère cipher is based.
   
 
 ## High Level Plan and Priorities
