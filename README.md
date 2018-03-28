@@ -21,6 +21,19 @@ Below 800 characters keys of length 5 are being deduced as length 10 for a reaso
 
 ## How to Use
 * Build the project via Cmake (tested and working with GCC7 and Clang-5) or download the [Linux](https://work.jonze.uk/wp-content/uploads/2018/02/Linux.zip) or [macOS](https://work.jonze.uk/wp-content/uploads/2018/02/macOS.zip) binary.
+* Run the application via the command line with `./VigenereVictory`
+* To prep a test message I have been using:
+  * [This](https://www.browserling.com/tools/remove-punctuation) to remove all punctuation from a message.
+  * [This](https://www.browserling.com/tools/remove-all-whitespace) to remove all the whitespace from a message.
+  * [This](https://convertcase.net/) to convert the message to upper case.
+  * And finally, [this](https://www.dcode.fr/vigenere-cipher) to encode the message with a key.
+  * (I am going to write a script to perform all of the above during my next session.)
+* Paste the ciphertext string in at the prompt and, (until I implement the decoder) you should finish with something like this:
+
+![alt text](https://work.jonze.uk/wp-content/uploads/2018/02/Screenshot-from-2018-03-27-22-56-06.png)
+
+* The reason for enforcing monocase strings with no numbers at this time is that I wanted to authentically replicate the types of messages that the Vigenere Cipher and other polyalphabetic ciphers would have been used for in the times of Giovan Battista Bellaso, the cipher's originator, (and not Blaise de Vigenère!). Numbers and whitespace were considered to convey too much derivable context to an informed interceptor, even before cryptanalysis on the message had begun. 
+  
 
 ## High Level Plan and Priorities
 * **C++** - Implement the core text decipherment functionality in using Kasiski's lead. **[V.1 Finished]**
