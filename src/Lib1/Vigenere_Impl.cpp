@@ -8,6 +8,7 @@
 #include "src/Lib1/Input.h"
 #include "src/Lib1/VigenereDecipherer.h"
 #include "src/Lib1/MessageBorderer.h"
+#include "src/Lib1/VigenereSquare.h"
 
 using std::make_unique;
 using std::cout;
@@ -38,10 +39,24 @@ void Vigenere_Impl::Start(string flag /*"= --desktop"*/) {
                 cout << "ciphertexts of length less than 800 have not been fully tested yet!" << '\n';
             }
             else {
+
+                auto t1 = std::chrono::high_resolution_clock::now();
+
                 auto[key, key_length] = vigenere_decipherer_->Decipher(cipher_text);
-                cout << "Key: " << key << ", Key length: " << key_length << '\n';
-                cout << "Incorrect? Please let me know!" << '\n';
-                cout << endl;
+                auto plain_text = VigenereSquare::decrypt(cipher_text, key);
+
+                auto t2 = std::chrono::high_resolution_clock::now();
+                auto duration = duration_cast<milliseconds>(t2 - t1).count();
+
+                cout << "---------------------------------------------------" << '\n';
+                cout << "Key: " << key << ", Key length: " << key_length << '\n'
+                     << cipher_text.length() << " characters decrypted in " << duration << " ms" << '\n'
+                     << '\n'
+                     << "plaintext >>" << '\n'
+                     << plain_text << '\n'
+                     << "Incorrect? Please let me know!" << '\n'
+                     << endl;
+                cout << "---------------------------------------------------" << '\n';
             }
         }
     }

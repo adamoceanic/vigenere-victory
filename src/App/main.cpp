@@ -4,6 +4,7 @@
 
 using std::make_unique;
 
+
 int main(int argc, char ** argv) {
 
     auto vig_entry = make_unique<Vigenere>();
