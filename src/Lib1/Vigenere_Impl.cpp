@@ -20,7 +20,7 @@ using namespace std::chrono;
 // ===================================================
 // PUBLIC MEMBER FUNCS
 
-void Vigenere_Impl::Start(string flag /*"= --desktop"*/) {
+void Vigenere_Impl::Start(string flag /*"= --cmd"*/) {
 
     if (flag == "--cmd") {
         MessageBorderer::print(welcome_message_);
