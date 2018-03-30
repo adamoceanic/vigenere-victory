@@ -83,7 +83,6 @@ public:
         string plain_text;
         string key_string = VigenereSquare::genKeyString(cipher_text, key);
         for (int i = 0; i < cipher_text.length(); ++i) {
-
             plain_text += eng_alphabet_[pythonStyleMod(((cipher_text[i] - 65) - (key_string[i] - 65)), 26)];
         }
         return plain_text;
