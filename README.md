@@ -23,7 +23,8 @@ Below 800 characters keys of length 5 are being deduced as length 10 for a reaso
 
 ## How to Use
 * You can either visit [this](http://52.214.209.38) link or:
-* Build the project via Cmake (tested and working with GCC7 and Clang-5) or download the [Linux](https://work.jonze.uk/wp-content/uploads/2018/02/Linux.zip) or [macOS](https://work.jonze.uk/wp-content/uploads/2018/02/macOS.zip) binary.
+* Build the project via Cmake (tested and working with GCC7 and Clang-5) or:
+* Download the [Linux](https://work.jonze.uk/wp-content/uploads/2018/02/Linux.zip) or [macOS](https://work.jonze.uk/wp-content/uploads/2018/02/macOS.zip) binary.
 * Run the application via the command line with `./VigenereVictory`
 * To prep a test message I have been using:
   * [This](https://www.browserling.com/tools/remove-punctuation) to remove all punctuation from a message.
