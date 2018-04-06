@@ -36,10 +36,11 @@ private:
     static int pythonStyleMod(int a, int b) {
         assert(b > 0);
         int ret = a % b;
-        if constexpr  (std::is_unsigned_v<int>)
+        if constexpr (std::is_unsigned_v<int>)
         {
             return ret;
-        } else {
+        }
+        else {
             return (ret >= 0) ? (ret) : (ret + b);
         }
     }
@@ -79,7 +80,7 @@ private:
 
 public:
 
-    static string decrypt(string cipher_text, string key) {
+    static string decrypt(const string& cipher_text, const string& key) {
         string plain_text;
         string key_string = VigenereSquare::genKeyString(cipher_text, key);
         for (int i = 0; i < cipher_text.length(); ++i) {
