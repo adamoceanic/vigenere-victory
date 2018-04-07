@@ -8,12 +8,12 @@
   <script>
 
       $(document).ready(function() {
-          $('#buttonid').on('click', function(e) {
+          $('#button').on('click', function(e) {
               e.preventDefault(); // prevent page from reloading.
               $.ajax({
                 type: "POST",
                 url: "callProg.php",
-                data: { cipher_text: $("#input-box").val()},
+                data: { cipher_text: $("#input-box").val() },
                 dataType: 'json',
                 success: function(data) {
                   var result = data[0].split("#");
@@ -34,7 +34,7 @@
   <div id="input">
     <textarea id="input-box" rows="10" cols="120"></textarea>
   </div>
-  <input type="submit" id="buttonid" value="DECRYPT"/>
+  <input type="submit" id="button" value="DECRYPT"/>
   <div id="output">
     <textarea id="output-box" rows="10" cols="120"></textarea>
   </div>
