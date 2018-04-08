@@ -8,11 +8,35 @@
    display: block;
  }
 
-#buttonid {
+#button {
   margin-top: 20px;
   margin-bottom: 20px;
+  width: 200px;
+  height: 50px;
 }
 
 textarea {
    resize: none;
+}
+
+#error-msg {
+  border: 2px solid red;
+  padding: 4px;
+  margin-bottom: 8px;
+}
+
+.show_error {
+  display: block;
+}
+
+.hide_error {
+  display: none;
+}
+
+.grey-text {
+  color: grey;
+}
+
+.black_text {
+  color: black;
 }
