@@ -20,6 +20,8 @@ Below 800 characters keys of length 5 are being deduced as length 10 for a reaso
 * **27/03/18** - The application now defaults to accepting the ciphertext via the command line. This can be overridden by starting the application with `./VigenereVictory --matlab`. This won't be much use at all to anybody but me right now because the location where it searches for the Matlab output is currently hardcoded in for my ease. This will change when I ship the GUI. The decryption functionality is being tested and it will be added soon so the app can spit out the plaintext, also support for lowercase text. Making a downloadable binary available.
 * **28/03/18** - Now printing the decrypted plaintext to the shell. I am going to try and implement a trained model that can take a string and insert spaces into the semantically correct positions. 
 * **06/04/18** - After a small battle with PHP and Nginx I have deployed the application to AWS with a very basic web front end. Right now it's just hosted in an EC2 container [here](http://vigenerevictory.ajze.co.uk), but I am going to build it as a Node addon module tomorrow so it can be deployed to AWS Lambda and API Gateway for comparison. Basic source is in the `website` directory. I need to add some information and input checking to the page at some point but for now this will be all I am going to do on this hobby project for some time because I have real work to do! 
+* **13/04/18** - I found myself with a free afternoon and ended up having a first try at the augmented reality addon to the project. It took a while but I finsihed with a very rough working prototype, laying the groundwork for if I decide to revisit this at some point in the future. One issue I have, (brought about by the terrible framerate the open source screen recorder left me with) was that the character recognition of the printout, subsequent cryptanalysis, and creation of a result image happens faster than the time needed to render an updated frame to the webcam window. This means until I add in a pause or loading animation of some description, you never actually see the ciphertext as it appears on the page before it gets cryptanalysed:
+[![VigenereVictoryARTest](https://raw.githubusercontent.com/ajze/vigenere-victory/master/uml/yt_link.png)](https://youtu.be/NQ-n_qV14PQ)
 
 ## How to Use
 * You can either visit [this](http://vigenerevictory.ajze.co.uk) link or:
@@ -43,10 +45,8 @@ Below 800 characters keys of length 5 are being deduced as length 10 for a reaso
 * **C++** - Implement the core text decipherment functionality in using Kasiski's lead. **[V.1 Finished]**
   * Benchmark the code and discover the boundaries between and the conditions that lead to success or failure. For example, length of the ciphertext and key length.
 * **Matlab/Python 3** - Implement and train a model to support the deciphering module with 'best guess' and 'fill in the blanks' capabilities. **[Testing stage]**
-* **Matlab/Python 3** - Implement and train a model to read in the characters from a printed ciphertext message via webcam and deliver it to the decipherment module, with the potential to later include handwritten messages. **[Ongoing]**
-  * I want to build this capability in both Matlab and Python 3 in an effort to contrast and compare. 
-  * The Matlab implementation requires creation of a MEX files, the  Matlab-C/C++ API.
-  * The Python 3 implementation will require the use of ctypes, the foreign function library for Python.
+* **Python 3** - Implement and train a model to read in the characters from a printed ciphertext message via webcam and deliver it to the decipherment module, with the potential to later include handwritten messages. **[Ongoing]**
+  * Will require the use of ctypes, the foreign function library for Python.
 * Explore a means of augmenting the webcam view to project the deciphered text on top of the ciphertext.
 * Experiment with deployment options
   * The options exist to package the application either as a Matlab program containing a C++ .dll, or a C++ application calling Matlab functions using the Matlab Engine API.
