@@ -33,7 +33,6 @@ void Vigenere_Impl::Start(string flag /*"= --cmd"*/) {
             if (cipher_text == string{'q'}) {
                 break;
             }
-            //cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
             if (cipher_text.length() < 800) {
                 cout << "ciphertexts of length less than 800 have not been fully tested yet!" << '\n';
@@ -83,29 +82,17 @@ void Vigenere_Impl::Start(string flag /*"= --cmd"*/) {
                 }
 
                 cout << "CIPHERTEXT RECEIVED: " << '\n';
-                /*
-                 * returns key,  key length other meta data
-                 */
+
                 auto [key, key_length] = vigenere_decipherer_->Decipher(cipher_text);
+                auto plain_text = VigenereSquare::decrypt(cipher_text, key);
 
                 auto t2 = high_resolution_clock::now();
 
                 cout << "likely key: " << key << ", likely key length: " << key_length << '\n';
 
                 auto duration = duration_cast<milliseconds>(t2 - t1).count();
+
                 cout << "time: " << duration  << " ms: " << '\n';
-
-                /*
-                 * Best Guess, text analysis etc
-                 */
-                //cout << "SUGGESTION UNIT" << '\n';
-                //std::this_thread::sleep_for(std::chrono::seconds(5));
-
-                /*
-                 * output text then AR to screen
-                 */
-                //cout << "AR UNIT" << endl;
-                std::this_thread::sleep_for(std::chrono::seconds(5));
 
                 input_manager_->SetHasCiphertext(false);
             }
