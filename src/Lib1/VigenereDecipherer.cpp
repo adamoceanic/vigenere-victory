@@ -209,7 +209,13 @@ vector<vector<double>> VigenereDecipherer::getAllCharRelativeFreqs(const vector<
     return all_char_counts;
 }
 
-
+/**
+ * Return the Residual Sum of Squares between the english frequencies and the calculated relative frequencies
+ *
+ * @param eng_freqs
+ * @param relative_freqs
+ * @return
+ */
 double VigenereDecipherer::calcRSS (const array<double, 26>& eng_freqs, vector<double>& relative_freqs) {
     double rss = 0;
     for (int i = 0; i < eng_freqs.size(); ++i) {
@@ -218,7 +224,13 @@ double VigenereDecipherer::calcRSS (const array<double, 26>& eng_freqs, vector<d
     return rss;
 }
 
-
+/**
+ * Return the Root Mean Squared Error 
+ *
+ * @param rss
+ * @param value_count
+ * @return
+ */
 double VigenereDecipherer::calcRMSE (double rss, double value_count) {
     return sqrt((1 / value_count) * rss);
 }
