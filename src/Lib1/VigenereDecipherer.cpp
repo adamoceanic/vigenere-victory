@@ -19,6 +19,12 @@ using std::rotate;
  * EXCEPTION HANDLING NEEDED
  */
 
+/**
+ * Filter out ngrams whose occurrence count is below threshold
+ *
+ * @param all_ngrams
+ * @param threshold
+ */
 void VigenereDecipherer::removeNgramsBelowOccurrenceThreshold(um_str_vec_t& all_ngrams, int threshold) {
 
     um_str_vec_t::iterator it = all_ngrams.begin();
@@ -94,6 +100,14 @@ int VigenereDecipherer::multiGCD(vector<int>& nums)
     return multiGCD(nums);
 }
 
+/**
+ * Return the Greatest Common Divisors of the distances between all ngram occurrences
+ *
+ * @param occurrences
+ * @param begin - start index of batch
+ * @param end  - end index of batch
+ * @return
+ */
 vector<int> VigenereDecipherer::getGCDs(const vector<vector<int>>& occurrences, int begin, int end) {
 
     vector<int> distances;
@@ -225,7 +239,7 @@ double VigenereDecipherer::calcRSS (const array<double, 26>& eng_freqs, vector<d
 }
 
 /**
- * Return the Root Mean Squared Error 
+ * Return the Root Mean Squared Error
  *
  * @param rss
  * @param value_count
@@ -268,6 +282,12 @@ string VigenereDecipherer::getKey(vector<vector<double>> all_relative_frequencie
     return key;
 }
 
+/**
+ * Decipher the ciphertext string
+ *
+ * @param cipher_text
+ * @return
+ */
 pair<string, int> VigenereDecipherer::Decipher(const string& cipher_text) {
 
     // GET REPEATING NGRAMS AND NUMBER OF OCCURRENCES
@@ -304,8 +324,6 @@ pair<string, int> VigenereDecipherer::Decipher(const string& cipher_text) {
     // deduce key via freq analysis and shifting
     string encryption_key = getKey(all_relative_frequencies);
 
-
-    // DECODE THE MESSAGE
-
+    // DECIPHER THE MESSAGE
     return pair<string, int>(encryption_key, key_length);
 }
