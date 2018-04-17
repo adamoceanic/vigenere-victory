@@ -54,8 +54,8 @@ public:
                                     int begin, int end);
 
     vector<vector<char>> columniseCipherText(const string& cipher_text, int num_cols);
-    vector<double> getColumnCharCount(const vector<char>& column);
-    vector<vector<double>> getAllCharCounts(const vector<vector<char>>& columns);
+    vector<double> getColumnCharRelativeFreqs(const vector<char>& column);
+    vector<vector<double>> getAllCharRelativeFreqs(const vector<vector<char>>& columns);
     double calcRSS (const array<double, 26>& eng_freqs, vector<double>& relative_freqs);
     double calcRMSE (double rss, double value_count);
     char findKeyChar(const array<double, 26>& eng_freqs, vector<double>& relative_freqs);

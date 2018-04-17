@@ -62,7 +62,13 @@ VigenereDecipherer::um_str_vec_t
     return ngrams;
 }
 
-// get GCD of 2 numbers
+/**
+ * Return the GCD of two integers
+ *
+ * @param u
+ * @param v
+ * @return
+ */
 int VigenereDecipherer::gcd(int u, int v)
 {
     if (v)  { return gcd(v, u % v); }
@@ -71,7 +77,12 @@ int VigenereDecipherer::gcd(int u, int v)
     }
 }
 
-// get GCD of vector of numbers
+/**
+ * Return the GCD of a vector of integers
+ *
+ * @param nums
+ * @return
+ */
 int VigenereDecipherer::multiGCD(vector<int>& nums)
 {
     if (nums.empty()) { return 0; }
@@ -143,7 +154,14 @@ vector<vector<char>> VigenereDecipherer::columniseCipherText(const string& ciphe
     return columns;
 }
 
-vector<double> VigenereDecipherer::getColumnCharCount(const vector<char>& column) {
+/**
+ * Returns the relative frequencies of the characters in one column of the ciphertext.
+ * Remember: Each char in a column was encrypted with the same letter of the key. No. of columns = key length
+ *
+ * @param column
+ * @return
+ */
+vector<double> VigenereDecipherer::getColumnCharRelativeFreqs(const vector<char>& column) {
 
     vector<double> char_counts;
     char_counts.reserve(26);
@@ -168,11 +186,18 @@ vector<double> VigenereDecipherer::getColumnCharCount(const vector<char>& column
     return char_counts;
 }
 
-vector<vector<double>> VigenereDecipherer::getAllCharCounts(const vector<vector<char>>& columns) {
+/**
+ * Returns the relative frequencies of the characters in each of the columns of the ciphertext.
+ * Remember: Each char in a column was encrypted with the same letter of the key. No. of columns = key length
+ *
+ * @param columns
+ * @return
+ */
+vector<vector<double>> VigenereDecipherer::getAllCharRelativeFreqs(const vector<vector<char>>& columns) {
 
     vector<future<vector<double>>> futures;
     for (const auto& column : columns) {
-        futures.emplace_back(async(launch::async, &VigenereDecipherer::getColumnCharCount, this, std::ref(column)));
+        futures.emplace_back(async(launch::async, &VigenereDecipherer::getColumnCharRelativeFreqs, this, std::ref(column)));
     }
     vector<vector<double>> all_char_counts;
     all_char_counts.reserve(columns.size());
@@ -262,7 +287,7 @@ pair<string, int> VigenereDecipherer::Decipher(const string& cipher_text) {
     auto ciphertext_columns = columniseCipherText(cipher_text, key_length);
 
     // analyse the relative frequencies of each column
-    auto all_relative_frequencies = getAllCharCounts(ciphertext_columns);
+    auto all_relative_frequencies = getAllCharRelativeFreqs(ciphertext_columns);
 
     // deduce key via freq analysis and shifting
     string encryption_key = getKey(all_relative_frequencies);

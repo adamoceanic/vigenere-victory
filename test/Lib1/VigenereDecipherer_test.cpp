@@ -25,6 +25,10 @@ TEST_CASE("VigenereDecipherer class basics", "[vigenere-decipherer]") {
     VigenereDecipherer::um_str_vec_t search_ngrams;
     string test_ciphertext_long = "NIGFMNGCGFBHISSMVWTLNIGFMNGCGFBHISSMVWTLNIGFMNGCGFBHISSMVWTL";
 
+    // setup for column freqs methods
+    vector<char> column1 = {'A', 'A', 'A', 'A', 'A', 'B', 'B', 'B', 'B', 'B'};
+    vector<char> column2 = {'C', 'C', 'C', 'C', 'C', 'D', 'D', 'D', 'D', 'D'};
+
 
     SECTION("actually gets default constructed") {
         REQUIRE(vig_dec != nullptr);
@@ -82,12 +86,41 @@ TEST_CASE("VigenereDecipherer class basics", "[vigenere-decipherer]") {
         REQUIRE(vig_dec->getKeyLength(occurrences) == 6);
     }
 
+    /**
+     * Columnise the ciphertext into 'key_length' quanity of vectors
+     * Each char in each column has been enciphered using the same key letter
+     */
     SECTION("columniseCipherText", "[vigenere-decipherer]") {
 
         auto columnise = vig_dec->columniseCipherText(test_ciphertext_long, 6);
         REQUIRE(columnise.size() == 6);
         REQUIRE(columnise[0].size() == 10);
     }
+
+    /**
+     * Get the relative frequencies of a vector of characters
+     */
+    SECTION("getColumnCharRelativeFreqs", "[vigenere-decipherer]") {
+
+        auto counts = vig_dec->getColumnCharRelativeFreqs(column1);
+        REQUIRE(counts[0] == 0.5);
+        REQUIRE(counts[1] == 0.5);
+    }
+
+    /**
+     * Get the relative frequencies of several vectors of characters
+     */
+    SECTION("getAllCharRelativeFreqs", "[vigenere-decipherer]") {
+
+        vector<vector<char>> columns{column1, column2};
+        auto counts = vig_dec->getAllCharRelativeFreqs(columns);
+        REQUIRE(counts[0][0] == 0.5);
+        REQUIRE(counts[0][1] == 0.5);
+        REQUIRE(counts[1][2] == 0.5);
+        REQUIRE(counts[1][3] == 0.5);
+    }
+
+
 
     delete(vig_dec);
 }
