@@ -1,11 +1,12 @@
 #pragma once
 
 #include <memory>
-#include <string>
-
 using std::make_unique;
 using std::unique_ptr;
+
+#include <string>
 using std::string;
+
 
 class Vigenere_Impl;
 

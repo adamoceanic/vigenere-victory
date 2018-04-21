@@ -87,7 +87,7 @@ TEST_CASE("VigenereDecipherer class basics", "[vigenere-decipherer]") {
     }
 
     /**
-     * Columnise the ciphertext into 'key_length' quanity of vectors
+     * Columnise the ciphertext into 'key_length' quantity of vectors
      * Each char in each column has been enciphered using the same key letter
      */
     SECTION("columniseCipherText", "[vigenere-decipherer]") {

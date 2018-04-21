@@ -1,8 +1,7 @@
 #include <memory>
+using std::make_unique;
 
 #include "include/Lib1/Vigenere.h"
-
-using std::make_unique;
 
 int main(int argc, char ** argv) {
 

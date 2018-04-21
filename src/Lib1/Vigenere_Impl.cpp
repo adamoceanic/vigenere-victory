@@ -1,19 +1,22 @@
 #include "Vigenere_Impl.h"
 
 #include <memory>
+using std::make_unique;
+
 #include <thread>
+
 #include <chrono>
+
 #include <iostream>
+using std::cout;
+using std::cin;
+using std::endl;
 
 #include "src/Lib1/Input.h"
 #include "src/Lib1/VigenereDecipherer.h"
 #include "src/Lib1/MessageBorderer.h"
 #include "src/Lib1/VigenereSquare.h"
 
-using std::make_unique;
-using std::cout;
-using std::endl;
-using std::cin;
 
 using namespace std::chrono;
 

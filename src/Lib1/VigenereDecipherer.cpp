@@ -1,21 +1,22 @@
 #include "src/Lib1/VigenereDecipherer.h"
 
-#include <thread>
 #include <future>
-#include <queue>
-
-#include <cmath>
-#include <algorithm>
-
 using std::future;
 using std::async;
 using std::launch;
+
+#include <queue>
 using std::priority_queue;
+
+#include <cmath>
+using std::pow;
+
+#include <algorithm>
 using std::rotate;
 
+
+
 /*
- * CLEANUP TEST CODE AND COMMENTS
- *
  * EXCEPTION HANDLING NEEDED
  */
 

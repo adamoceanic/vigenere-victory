@@ -1,14 +1,20 @@
 #pragma once
 
 #include <string>
+using std::string;
+
 #include <vector>
+using std::vector;
+
 #include <array>
+using std::array;
+
 #include <type_traits>
+using std::is_unsigned_v;
+
 #include <cassert>
 
-using std::string;
-using std::vector;
-using std::array;
+
 
 class VigenereSquare {
 

@@ -1,14 +1,17 @@
 #pragma once
 
 #include <memory>
-#include <string>
-#include <thread>
-#include <mutex>
-
-using std::string;
 using std::unique_ptr;
 using std::make_unique;
+
+#include <string>
+using std::string;
+
+#include <mutex>
 using std::mutex;
+
+#include <thread>
+using std::thread;
 
 class Input {
 private:

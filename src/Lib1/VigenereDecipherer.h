@@ -1,19 +1,21 @@
 #pragma once
 
 #include <string>
-#include <unordered_map>
-#include <map>
-#include <utility>
-#include <array>
-#include <vector>
-
 using std::string;
+
+#include <unordered_map>
 using std::unordered_map;
-using std::multimap;
+
+#include <utility>
 using std::pair;
 using std::make_pair;
+
+#include <array>
 using std::array;
+
+#include <vector>
 using std::vector;
+
 
 class VigenereDecipherer {
 private:
