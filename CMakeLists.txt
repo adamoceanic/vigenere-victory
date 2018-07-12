@@ -4,8 +4,7 @@ cmake_minimum_required(VERSION 3.8)
 
 project(vigenere-victory)
 
-
-# ============================================================
+# ==========================================================
 # Set the Standard version.
 
 include(CheckCXXCompilerFlag)

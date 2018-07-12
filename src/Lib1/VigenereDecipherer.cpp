@@ -76,8 +76,7 @@ VigenereDecipherer::um_str_vec_t
  * @param v
  * @return
  */
-int VigenereDecipherer::gcd(int u, int v)
-{
+int VigenereDecipherer::gcd(int u, int v) {
     if (v)  { return gcd(v, u % v); }
     else {
         return u < 0 ? -u : u;
@@ -90,8 +89,7 @@ int VigenereDecipherer::gcd(int u, int v)
  * @param nums
  * @return
  */
-int VigenereDecipherer::multiGCD(vector<int>& nums)
-{
+int VigenereDecipherer::multiGCD(vector<int>& nums) {
     if (nums.empty()) { return 0; }
     else if (nums.size() == 1) { return nums[0]; }
     else if (nums.size() == 2) { return gcd(nums[0], nums[1]); }
